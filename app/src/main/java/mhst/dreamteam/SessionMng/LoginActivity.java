@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
                     // Process result
                     switch (result) {
                         case Const.RETURNCODE_SUCCESS: // Log in successfully
-                            finish();
+                            setResult(result);
                         case Const.ERROR_WRONG_USER_PASS: // Wrong username or password
                             tvStt.setText(LoginActivity.this.getString(R.string.error_wrong_user_pass));
                             break;
@@ -76,7 +76,6 @@ public class LoginActivity extends Activity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
