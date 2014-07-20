@@ -50,6 +50,7 @@ public class Session {
         // Do log in and return result code
         try {
             loginResult = new Login().execute(loginInfo).get();
+            Log.i("Session login", "Login result = " + loginResult);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

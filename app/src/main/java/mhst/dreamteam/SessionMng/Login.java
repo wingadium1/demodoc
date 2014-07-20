@@ -1,6 +1,5 @@
 package mhst.dreamteam.SessionMng;
 
-import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -21,7 +20,6 @@ import java.util.List;
 
 import mhst.dreamteam.Const;
 import mhst.dreamteam.GlobalConfig;
-import mhst.dreamteam.R;
 
 /**
  * Executes login/logout action...
@@ -57,6 +55,7 @@ public class Login extends AsyncTask<String, Void, Integer>{
 
             // Execute the request
             HttpResponse response = client.execute(postRequest);
+            Log.i("Log in", "Status code = " + response.getStatusLine().getStatusCode());
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) { // 200
                 // Login successfully
                 GlobalConfig.Server = loginInfo[0]; // Set working server

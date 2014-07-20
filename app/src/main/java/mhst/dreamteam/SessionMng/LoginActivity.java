@@ -48,6 +48,7 @@ public class LoginActivity extends Activity {
                     switch (result) {
                         case Const.RETURNCODE_SUCCESS: // Log in successfully
                             setResult(result);
+                            finish();
                         case Const.ERROR_WRONG_USER_PASS: // Wrong username or password
                             tvStt.setText(LoginActivity.this.getString(R.string.error_wrong_user_pass));
                             break;
