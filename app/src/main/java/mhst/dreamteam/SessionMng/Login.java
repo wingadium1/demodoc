@@ -59,8 +59,8 @@ public class Login extends AsyncTask<String, Void, Integer>{
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) { // 200
                 // Login successfully
                 GlobalConfig.Server = loginInfo[0]; // Set working server
-                return Const.RETURNCODE_SUCCESS;
-            } else if (response.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY) { // 302
+                return Const.SESSION_LOGGED_IN;
+            } else if (response.getStatusLine().getStatusCode() == HttpStatus.SC_FORBIDDEN) { // 302
                 // Wrong username or password
                 return Const.ERROR_WRONG_USER_PASS;
             }

@@ -12,7 +12,7 @@ import mhst.dreamteam.Const;
  * @author MinhNN
  */
 public class Session {
-    private static int loginResult = Const.ERROR_UNKNOWN_ERROR;
+    private static int loginResult = Const.SESSION_LOGGED_OUT;
 
     /**
      * Checks if user logged into system or not.
@@ -20,7 +20,7 @@ public class Session {
      *          false - user has not logged in yet
      */
     public static boolean isLogin() {
-        return (loginResult == Const.RETURNCODE_SUCCESS);
+        return (loginResult == Const.SESSION_LOGGED_IN);
     }
 
     /**
@@ -59,7 +59,16 @@ public class Session {
         return loginResult;
     }
 
-    public static void doLogout() {
-
+    public static int doLogout() {
+        try {
+            // if not logged in yet, just quit and return previous status
+            if (!isLogin()) return loginResult;
+            loginResult = new Logout().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return loginResult;
     }
 }

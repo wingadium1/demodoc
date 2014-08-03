@@ -13,13 +13,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import mhst.dreamteam.Const;
 import mhst.dreamteam.GlobalConfig;
 
 /**
  * Logs out from server
  * @author MinhNN
  */
-public class Logout extends AsyncTask<Void, Void, Boolean> {
+public class Logout extends AsyncTask<Void, Void, Integer> {
     private HttpClient client; // Client to connect to server
 
     @Override
@@ -32,7 +33,7 @@ public class Logout extends AsyncTask<Void, Void, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(Void... HttpUri) {
+    protected Integer doInBackground(Void... HttpUri) {
         // TODO Auto-generated method stub
 
         String sLogoutUrl = GlobalConfig.Server + GlobalConfig.logoutUri; // Logout Url
@@ -42,14 +43,15 @@ public class Logout extends AsyncTask<Void, Void, Boolean> {
             HttpResponse response = client.execute(requestGet); // Execute the request, return Redirect 302 if success
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY) {
                 Log.i("Log out", "Logged out");
-                return true;
+                return Const.SESSION_LOGGED_OUT;
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            return Const.ERROR_CONNECTION_ERROR;
         }
         Log.e("Log out", "Not yet");
-        return false;
+        return Const.SESSION_LOGGED_IN;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class Logout extends AsyncTask<Void, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
+    protected void onPostExecute(Integer result) {
         // TODO Auto-generated method stub
         super.onPostExecute(result);
     }

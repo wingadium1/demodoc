@@ -38,6 +38,7 @@ public class LoginActivity extends Activity {
         final Button btReg = (Button) findViewById(R.id.btRegister);    // Register
         final TextView tvStt = (TextView) findViewById(R.id.tvStt);     // Status
 
+
         // What do we do when "Log in" button clicked
         btLogin.setOnClickListener(new Button.OnClickListener() {
             @Override
