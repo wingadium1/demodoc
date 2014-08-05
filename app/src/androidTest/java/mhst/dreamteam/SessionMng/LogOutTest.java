@@ -14,6 +14,7 @@ import mhst.dreamteam.GlobalConfig;
  * Test logout action:<br />
  * +Test case 1: Connection fails<br />
  * +Test case 2: Successful<br />
+ * @author MinhNN
  */
 public class LogOutTest extends AndroidTestCase {
 
@@ -29,7 +30,7 @@ public class LogOutTest extends AndroidTestCase {
         // Begin test
         try {
             int res = new Logout().execute().get();
-            Assert.assertEquals("This should be a connection error", Const.ERROR_CONNECTION_ERROR, res);
+            Assert.assertEquals("This should be an unknown error", Const.ERROR_UNKNOWN_HOST, res);
         } catch (InterruptedException e) {
             Assert.fail("ConnectionFails() method: " + e.getMessage());
         } catch (ExecutionException e) {
@@ -40,19 +41,14 @@ public class LogOutTest extends AndroidTestCase {
     @LargeTest
     public void testLogOutAction_Success() {
         // Begin test
-        try {
-            // Login first
-            // Server: http://web.demo.icinga.org
-            // Username: guest
-            // Password: guestuser
-            new Login().execute("http://web.demo.icinga.org", "guest", "guestuser");
-            // And then test logout
-            int res = new Logout().execute().get();
-            assertEquals("Logged out failed", Const.SESSION_LOGGED_OUT, res);
-        } catch (InterruptedException e) {
-            Assert.fail("Success() method: " + e.getMessage());
-        } catch (ExecutionException e) {
-            Assert.fail("Success() method: " + e.getMessage());
-        }
+        // Login first
+        // Server: http://web.demo.icinga.org
+        // Username: guest
+        // Password: guestuser
+        Session.doLogin("web.demo.icinga.org", "guest", "guestuser");
+        assertEquals("Login failed", true, Session.isLogin());
+        // And then test logout
+        int res = Session.doLogout();
+        assertEquals("Logout failed", Const.SESSION_LOGGED_OUT, res);
     }
 }

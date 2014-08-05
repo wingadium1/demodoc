@@ -2,10 +2,10 @@ package mhst.dreamteam.SessionMng;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.security.InvalidParameterException;
 
 import mhst.dreamteam.Const;
-import mhst.dreamteam.GlobalConfig;
 import mhst.dreamteam.R;
 
 /**
@@ -38,6 +37,18 @@ public class LoginActivity extends Activity {
         final Button btReg = (Button) findViewById(R.id.btRegister);    // Register
         final TextView tvStt = (TextView) findViewById(R.id.tvStt);     // Status
 
+        // Fill data if saved before
+        final SharedPreferences pref = getSharedPreferences("LoginInfo", MODE_PRIVATE);
+        String sServer = pref.getString("Server", null);
+        String sUser = pref.getString("Username", null);
+        String sPw = pref.getString("_Pw", null);
+        if (sServer != null && sUser != null && sPw != null) {
+            etIp.setText(sServer);
+            etUser.setText(sUser);
+            etPass.setText(sPw);
+            cbRem.setChecked(true);
+        }
+
 
         // What do we do when "Log in" button clicked
         btLogin.setOnClickListener(new Button.OnClickListener() {
@@ -48,17 +59,33 @@ public class LoginActivity extends Activity {
                     // Process result
                     switch (result) {
                         case Const.RETURNCODE_SUCCESS: // Log in successfully
+                            // If user wanna save login information
+                            if (cbRem.isChecked()) {
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putString("Server", etIp.getText().toString());
+                                editor.putString("Username", etUser.getText().toString());
+                                editor.putString("_Pw", etPass.getText().toString());
+                                editor.apply();
+                            }
+                            // Set login result and finish activity
                             setResult(result);
                             finish();
                         case Const.ERROR_WRONG_USER_PASS: // Wrong username or password
                             tvStt.setText(LoginActivity.this.getString(R.string.error_wrong_user_pass));
                             break;
-                        case Const.ERROR_CONNECTION_ERROR: // Connection error
+                        case Const.ERROR_UNKNOWN_HOST: // Connection error, unknown host or host unreachable
                             new AlertDialog.Builder(LoginActivity.this)
                                     .setMessage(R.string.error_server_unreachable)
                                     .setTitle(R.string.error)
                                     .create().show();
                             tvStt.setText(LoginActivity.this.getString(R.string.error_server_unreachable));
+                            break;
+                        case Const.ERROR_CONNECTION_ERROR: // Connection error, IO error
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setMessage(R.string.error_connection_error)
+                                    .setTitle(R.string.error)
+                                    .create().show();
+                            tvStt.setText(LoginActivity.this.getString(R.string.error_connection_error));
                             break;
                         default: // Log in failed, unknown error
                             tvStt.setText(LoginActivity.this.getString(R.string.error_login_fail));

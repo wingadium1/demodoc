@@ -21,6 +21,7 @@
     <string name="error_login_fail">Không thể đăng nhập</string>
     <string name="error_wrong_user_pass">Sai tên hoặc mật khẩu</string>
     <string name="error_empty_field">Hãy điền đầy đủ các trường</string>
-    <string name="error_server_unreachable">Không thể kết nối máy chủ</string>
+    <string name="error_server_unreachable">Máy chủ không tồn tại hoặc tạm thời không hoạt động.\nKhông thể kết nối máy chủ</string>
+    <string name="error_connection_error">lỗi kết nối đến máy chủ\nKhông thể kết nối máy chủ</string>
 
 </resources>

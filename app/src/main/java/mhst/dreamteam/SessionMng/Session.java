@@ -3,6 +3,7 @@ package mhst.dreamteam.SessionMng;
 import android.util.Log;
 
 import java.security.InvalidParameterException;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import mhst.dreamteam.Const;
@@ -13,6 +14,7 @@ import mhst.dreamteam.Const;
  */
 public class Session {
     private static int loginResult = Const.SESSION_LOGGED_OUT;
+    private static String Cookie = null;
 
     /**
      * Checks if user logged into system or not.
@@ -21,6 +23,14 @@ public class Session {
      */
     public static boolean isLogin() {
         return (loginResult == Const.SESSION_LOGGED_IN);
+    }
+
+    /**
+     * Return current session cookie
+     * @return cookie string
+     */
+    public static String getCookie() {
+        return Cookie;
     }
 
     /**
@@ -47,9 +57,20 @@ public class Session {
 
         // Parse server address
         loginInfo[0] = "http://" + loginInfo[0];
+
+        // Response data
+        Map<String, Object> result;
         // Do log in and return result code
         try {
-            loginResult = new Login().execute(loginInfo).get();
+            result = new Login().execute(loginInfo).get();
+            if (result.containsKey("Code")) {
+                // Login result
+                loginResult = (Integer) result.get("Code");
+            }
+            if (result.containsKey("Cookie")) {
+                // Current session cookie
+                Cookie = (String) result.get("Cookie");
+            }
             Log.i("Session login", "Login result = " + loginResult);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -63,7 +84,12 @@ public class Session {
         try {
             // if not logged in yet, just quit and return previous status
             if (!isLogin()) return loginResult;
+            // Then logout
             loginResult = new Logout().execute().get();
+            if (loginResult != Const.SESSION_LOGGED_IN) {
+                // Empty cookie when logout
+                Cookie = null;
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -3,17 +3,13 @@ package mhst.dreamteam.SessionMng;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import mhst.dreamteam.Const;
+import mhst.dreamteam.Controller.NetController;
 import mhst.dreamteam.GlobalConfig;
 
 /**
@@ -21,49 +17,44 @@ import mhst.dreamteam.GlobalConfig;
  * @author MinhNN
  */
 public class Logout extends AsyncTask<Void, Void, Integer> {
-    private HttpClient client; // Client to connect to server
-
-    @Override
-    protected void onPreExecute() {
-        // TODO Auto-generated method stub
-        super.onPreExecute();
-
-        Log.i("Log out", "Logging out");
-        client = new DefaultHttpClient(); // Create a client before connecting to server
-    }
 
     @Override
     protected Integer doInBackground(Void... HttpUri) {
         // TODO Auto-generated method stub
-
+        // Parse logout URL
         String sLogoutUrl = GlobalConfig.Server + GlobalConfig.logoutUri; // Logout Url
 
-        HttpGet requestGet = new HttpGet(sLogoutUrl); // Create a GET request
-        try {
-            HttpResponse response = client.execute(requestGet); // Execute the request, return Redirect 302 if success
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_MOVED_TEMPORARILY) {
-                Log.i("Log out", "Logged out");
-                return Const.SESSION_LOGGED_OUT;
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return Const.ERROR_CONNECTION_ERROR;
+        // Properties for request
+        Map<String, String> prop = new HashMap<String, String>();
+        if (Session.getCookie() !=  null) {
+            prop.put("Cookie", Session.getCookie());
+        }
+
+        // Send request and get response data
+        Map<String, Object> mResponse = NetController.sendRequest("GET", sLogoutUrl, "", prop);
+
+        // Check if there is any error
+        if (mResponse == null) return Const.ERROR_UNKNOWN_ERROR; // No response data
+        if (mResponse.containsKey("Error")) return (Integer) mResponse.get("Error"); // Check if any error was detected
+        int sttCode;
+        if (mResponse.containsKey("Code")) {
+            sttCode = (Integer) mResponse.get("Code"); // Get response code
+        } else {
+            return Const.ERROR_UNKNOWN_ERROR; // No response code
+        }
+        Log.i("Log out", "Status code = " + sttCode);
+
+        // Check logout condition
+        if (sttCode == HttpStatus.SC_MOVED_TEMPORARILY) { // 302
+            // Logout successfully
+            Log.i("Log out", "Logged out");
+            return Const.SESSION_LOGGED_OUT;
+        } else if (sttCode == HttpStatus.SC_FORBIDDEN) { // 403
+            // Not logged in yet
+            Log.i("Log out", "Not logged in yet");
+            return Const.SESSION_LOGGED_OUT;
         }
         Log.e("Log out", "Not yet");
         return Const.SESSION_LOGGED_IN;
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        // TODO Auto-generated method stub
-        super.onProgressUpdate(values);
-        Log.i("Log out", "Retrieving data...");
-    }
-
-    @Override
-    protected void onPostExecute(Integer result) {
-        // TODO Auto-generated method stub
-        super.onPostExecute(result);
     }
 }

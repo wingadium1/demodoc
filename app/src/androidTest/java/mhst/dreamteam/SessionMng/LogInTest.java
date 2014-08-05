@@ -14,9 +14,10 @@ import mhst.dreamteam.Const;
 
 /**
  * Test login action:<br />
- * +Test case 1: Connection fails<br />
+ * +Test case 1: Unknown host<br />
  * +Test case 2: Wrong username or password<br />
  * +Test case 3: Successful<br />
+ * @author MinhNN
  */
 public class LogInTest extends AndroidTestCase {
     private Map<String, Map<String, String>> testCase = null; // Map<"Case_Name", Map<"Server/User/Pass", value>>
@@ -43,15 +44,15 @@ public class LogInTest extends AndroidTestCase {
         child_wrong_user_pass.put("User", "non_root");
         child_wrong_user_pass.put("Pass", "123@123a");
 
-        // Connection fails login dataset
-        Map<String, String> child_connection_fail = new HashMap<String, String>();
-        child_connection_fail.put("Server", "http://123456789");
-        child_connection_fail.put("User", "root");
-        child_connection_fail.put("Pass", "123@123a");
+        // Unknown host login dataset
+        Map<String, String> child_unknown_host = new HashMap<String, String>();
+        child_unknown_host.put("Server", "http://123456789");
+        child_unknown_host.put("User", "root");
+        child_unknown_host.put("Pass", "123@123a");
 
         testCase.put("SuccessCase", child_success);
         testCase.put("WrongUserCase", child_wrong_user_pass);
-        testCase.put("ConnectFailCase", child_connection_fail);
+        testCase.put("UnknownHostCase", child_unknown_host);
     }
 
     @MediumTest
@@ -62,21 +63,22 @@ public class LogInTest extends AndroidTestCase {
     }
 
     @LargeTest
-    public void testLogInAction_ConnectionFails() {
+    public void testLogInAction_UnknownHost() {
         // Get test case dataset
-        Map<String, String> test = testCase.get("ConnectFailCase");
+        Map<String, String> test = testCase.get("UnknownHostCase");
         String sServer = test.get("Server");
         String sUser = test.get("User");
         String sPass = test.get("Pass");
 
         // Begin test
         try {
-            int res = new Login().execute(sServer, sUser, sPass).get();
-            Assert.assertEquals("This should be a connection error", Const.ERROR_CONNECTION_ERROR, res);
+            Map<String, Object> result = new Login().execute(sServer, sUser, sPass).get();
+            int res = (Integer) result.get("Code");
+            Assert.assertEquals("This should be an unknown host error", Const.ERROR_UNKNOWN_HOST, res);
         } catch (InterruptedException e) {
-            Assert.fail("ConnectionFails() method: " + e.getMessage());
+            Assert.fail("UnknownHost() method: " + e.getMessage());
         } catch (ExecutionException e) {
-            Assert.fail("ConnectionFails() method: " + e.getMessage());
+            Assert.fail("UnknownHost() method: " + e.getMessage());
         }
     }
 
@@ -90,7 +92,8 @@ public class LogInTest extends AndroidTestCase {
 
         // Begin test
         try {
-            int res = new Login().execute(sServer, sUser, sPass).get();
+            Map<String, Object> result = new Login().execute(sServer, sUser, sPass).get();
+            int res = (Integer) result.get("Code");
             assertEquals("User or pass should be wrong.", Const.ERROR_WRONG_USER_PASS, res);
         } catch (InterruptedException e) {
             Assert.fail("WrongUserPass() method: " + e.getMessage());
@@ -109,7 +112,8 @@ public class LogInTest extends AndroidTestCase {
 
         // Begin test
         try {
-            int res = new Login().execute(sServer, sUser, sPass).get();
+            Map<String, Object> result = new Login().execute(sServer, sUser, sPass).get();
+            int res = (Integer) result.get("Code");
             assertEquals("Logged in failed", Const.SESSION_LOGGED_IN, res);
         } catch (InterruptedException e) {
             Assert.fail("Success() method: " + e.getMessage());

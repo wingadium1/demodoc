@@ -21,6 +21,7 @@
     <string name="error_login_fail">Log in failed</string>
     <string name="error_wrong_user_pass">Wrong username or password</string>
     <string name="error_empty_field">Please fill all empty field</string>
-    <string name="error_server_unreachable">Cannot connect to server</string>
+    <string name="error_server_unreachable">Server not found or temporary down.\nCannot connect to server</string>
+    <string name="error_connection_error">Error in establish a connection to server\nCannot connect to server</string>
 
 </resources>
