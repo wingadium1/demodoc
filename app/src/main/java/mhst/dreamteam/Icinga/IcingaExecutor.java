@@ -7,11 +7,11 @@ import org.apache.http.HttpStatus;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import mhst.dreamteam.Controller.NetController;
 import mhst.dreamteam.GlobalConfig;
-import mhst.dreamteam.Misc.CookieMng;
 import mhst.dreamteam.SessionMng.Session;
 
 /**
@@ -32,22 +32,21 @@ public class IcingaExecutor extends AsyncTask<String, Void, String> {
         if (!AppSession.isLogin()) return null;
         if (AppSession.getCookie() == null) return null;
 
-        // Get authkey from cookie
-        String sAuthKey = "mhst1416";
-        Map<String, String> cookie = CookieMng.parse(AppSession.getCookie());
-        if (cookie != null && cookie.containsKey("icinga-web")) {
-            sAuthKey = cookie.get("icinga-web");
+        // Properties for request
+        Map<String, String> prop = new HashMap<String, String>();
+        if (AppSession.getCookie() !=  null) {
+            prop.put("Cookie", AppSession.getCookie());
         }
 
         // Parse api uri
         // Uri = http://server_address/Api_Uri/target/columns[column_filters]/authkey=something/json
         String Uri = AppSession.getWorkingServer() + GlobalConfig.apiUri + "/"
                 + sTarget + "/columns" + parseColumn(aColumn)
-                + "/authkey=" + sAuthKey + "/" + GlobalConfig.returnType;
+                + "/" + GlobalConfig.returnType;
 
         // Send request and get response
         String result;
-        Map<String, Object> response = NetController.sendRequest("GET", Uri, null, null);
+        Map<String, Object> response = NetController.sendRequest("GET", Uri, null, prop);
         if (response.containsKey("Code")) {
             if (((Integer) response.get("Code")) == HttpStatus.SC_OK) {
                 if (response.containsKey("Data")) {

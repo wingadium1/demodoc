@@ -16,5 +16,6 @@ public class ApplicationContext extends Application {
         super.onCreate();
         AppContext = this;
         Session.init();
+        System.setProperty("http.keepAlive", "true");
     }
 }
