@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import mhst.dreamteam.Const;
+import mhst.dreamteam.GlobalConst;
 import mhst.dreamteam.Controller.NetController;
 import mhst.dreamteam.GlobalConfig;
 import mhst.dreamteam.Misc.CookieMng;
@@ -28,7 +28,7 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
     @SuppressWarnings("unchecked")
     protected Map<String, Object> doInBackground(String... loginInfo) {
         // Parse login url
-        loginInfo[0] += GlobalConfig.loginUri;
+        String sLoginUrl = loginInfo[0] + GlobalConfig.loginUri;
 
         // Return data
         Map<String, Object> mResult = new HashMap<String, Object>();
@@ -41,16 +41,16 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
 
             // Properties for request
             Map<String, String> prop = new HashMap<String, String>();
-            if (Session.getCookie() !=  null) {
-                prop.put("Cookie", Session.getCookie());
+            if (Session.getInstance().getCookie() !=  null) {
+                prop.put("Cookie", Session.getInstance().getCookie());
             }
 
             // Send request and get response data
-            Map<String, Object> mResponse = NetController.sendRequest("POST", loginInfo[0], sRequest, prop);
+            Map<String, Object> mResponse = NetController.sendRequest("POST", sLoginUrl, sRequest, prop);
 
             // Check if there is any error
             if (mResponse == null) {
-                mResult.put("Code", Const.ERROR_UNKNOWN_ERROR);
+                mResult.put("Code", GlobalConst.ERROR_UNKNOWN_ERROR);
                 return mResult; // No response data
             }
             if (mResponse.containsKey("Error")) {
@@ -61,7 +61,7 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
             if (mResponse.containsKey("Code")) {
                 sttCode = (Integer) mResponse.get("Code"); // Get response code
             } else {
-                mResult.put("Code", Const.ERROR_UNKNOWN_ERROR);
+                mResult.put("Code", GlobalConst.ERROR_UNKNOWN_ERROR);
                 return mResult; // No response code
             }
             Log.i("Log in", "Status code = " + sttCode);
@@ -70,7 +70,7 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
             if (sttCode == HttpStatus.SC_OK) { // 200
                 // This must be the necessary condition to login successful (i.e. response code == 200)
                 if (!mResponse.containsKey("Data")) {
-                    mResult.put("Code", Const.ERROR_NO_RESPONSE_DATA);
+                    mResult.put("Code", GlobalConst.ERROR_NO_RESPONSE_DATA);
                     return mResult; // No response message
                 }
                 // Get response data to check the sufficient condition
@@ -80,10 +80,10 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
                 if (!success) { // Something wrong, login failed
                     JSONObject err = json.getJSONObject("errors");
                     if (err.has("username")) {
-                        mResult.put("Code", Const.ERROR_WRONG_USER_PASS);
+                        mResult.put("Code", GlobalConst.ERROR_WRONG_USER_PASS);
                         return mResult;
                     } else {
-                        mResult.put("Code", Const.ERROR_UNKNOWN_ERROR);
+                        mResult.put("Code", GlobalConst.ERROR_UNKNOWN_ERROR);
                         return mResult;
                     }
                 }
@@ -109,12 +109,11 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
                         }
                     }
                 }
-                GlobalConfig.Server = loginInfo[0]; // Set working server
-                mResult.put("Code", Const.SESSION_LOGGED_IN);
+                mResult.put("Code", GlobalConst.SESSION_LOGGED_IN);
                 return mResult;
             } else { // Error detected
                 if (!mResponse.containsKey("Data")) {
-                    mResult.put("Code", Const.ERROR_NO_RESPONSE_DATA);
+                    mResult.put("Code", GlobalConst.ERROR_NO_RESPONSE_DATA);
                     return mResult; // No response data
                 }
                 // Get response data to find out the reason
@@ -123,10 +122,10 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
                 if (!success) { // Obviously success == false
                     JSONObject err = json.getJSONObject("errors");
                     if (err.has("username")) {
-                        mResult.put("Code", Const.ERROR_WRONG_USER_PASS);
+                        mResult.put("Code", GlobalConst.ERROR_WRONG_USER_PASS);
                         return mResult; // Wrong username or password
                     } else {
-                        mResult.put("Code", Const.ERROR_UNKNOWN_ERROR);
+                        mResult.put("Code", GlobalConst.ERROR_UNKNOWN_ERROR);
                         return mResult; // Unknown error
                     }
                 }
@@ -136,7 +135,7 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        mResult.put("Code", Const.ERROR_UNKNOWN_ERROR);
+        mResult.put("Code", GlobalConst.ERROR_UNKNOWN_ERROR);
         return mResult;
     }
 

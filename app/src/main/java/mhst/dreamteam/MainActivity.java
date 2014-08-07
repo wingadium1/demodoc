@@ -5,7 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import java.util.concurrent.ExecutionException;
+
+import mhst.dreamteam.Icinga.IcingaExecutor;
+import mhst.dreamteam.Icinga.IcingaConst;
 import mhst.dreamteam.SessionMng.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
 
@@ -14,32 +19,50 @@ import mhst.dreamteam.SessionMng.Session;
  * @author MinhNN
  */
 public class MainActivity extends Activity {
+    TextView tvHello;
+    Session currentSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get application context for further uses
-        GlobalConfig.ApplicationContext = getApplicationContext();
+        currentSession = Session.getInstance();
 
         // Log in if not, required
-        if (!Session.isLogin()) {
+        if (!currentSession.isLogin()) {
             Intent i = new Intent(MainActivity.this, LoginActivity.class);
-            startActivityForResult(i, Const.REQUESTCODE_REQUIRE_LOGIN);
+            startActivityForResult(i, GlobalConst.REQUESTCODE_REQUIRE_LOGIN);
         }
 
         setContentView(R.layout.activity_main);
 
         // Do next step here
+        tvHello = (TextView) findViewById(R.id.tvHello);
+
+    }
+
+    private void updateList() {
+        String result = null;
+        try {
+            result = new IcingaExecutor().execute(IcingaConst.TARGET_HOST, IcingaConst.HOST_NAME, IcingaConst.HOST_LATENCY).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        if (result != null) {
+            tvHello.setText(result);
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case Const.REQUESTCODE_REQUIRE_LOGIN:
+            case GlobalConst.REQUESTCODE_REQUIRE_LOGIN:
                 // if user not log in, just exit
-                if (resultCode != Const.RETURNCODE_SUCCESS) { finish(); }
+                if (resultCode != GlobalConst.RETURNCODE_SUCCESS) { finish(); }
+                else { updateList(); }
                 break;
         }
     }

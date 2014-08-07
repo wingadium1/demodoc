@@ -6,30 +6,56 @@ import java.security.InvalidParameterException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import mhst.dreamteam.Const;
+import mhst.dreamteam.GlobalConst;
 
 /**
- * Manage session
+ * Manage session<br />
+ * This is also the application class
  * @author MinhNN
  */
 public class Session {
-    private static int loginResult = Const.SESSION_LOGGED_OUT;
-    private static String Cookie = null;
+    private String Server;
+    private int loginResult = GlobalConst.SESSION_LOGGED_OUT;
+    private String Cookie;
+    private static Session ss;
+
+    /**
+     * Initialize new instance
+     */
+    public static void init() {
+        if (ss == null) ss = new Session();
+    }
+
+    /**
+     * Returns instance initialized
+     * @return instance initialized
+     */
+    public static Session getInstance() {
+        return ss;
+    }
+
+    /**
+     * Get current working server
+     * @return current working server
+     */
+    public String getWorkingServer() {
+        return Server;
+    }
 
     /**
      * Checks if user logged into system or not.
      * @return  true - user logged in<br />
      *          false - user has not logged in yet
      */
-    public static boolean isLogin() {
-        return (loginResult == Const.SESSION_LOGGED_IN);
+    public boolean isLogin() {
+        return (loginResult == GlobalConst.SESSION_LOGGED_IN);
     }
 
     /**
      * Return current session cookie
      * @return cookie string
      */
-    public static String getCookie() {
+    public String getCookie() {
         return Cookie;
     }
 
@@ -40,7 +66,7 @@ public class Session {
      * &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; loginInfo[2] = Password<br />
      * @throws InvalidParameterException
      */
-    public static int doLogin(String... loginInfo)
+    public int doLogin(String... loginInfo)
             throws InvalidParameterException {
         // Check input data
         if (loginInfo.length == 0) {
@@ -67,11 +93,16 @@ public class Session {
                 // Login result
                 loginResult = (Integer) result.get("Code");
             }
-            if (result.containsKey("Cookie")) {
-                // Current session cookie
-                Cookie = (String) result.get("Cookie");
+            if (isLogin()) {
+                if (result.containsKey("Cookie")) {
+                    // Current session cookie
+                    Cookie = (String) result.get("Cookie");
+                }
+                Server = loginInfo[0];
             }
+
             Log.i("Session login", "Login result = " + loginResult);
+            Log.i("Session login", "Cookie = " + Cookie);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -80,13 +111,13 @@ public class Session {
         return loginResult;
     }
 
-    public static int doLogout() {
+    public int doLogout() {
         try {
             // if not logged in yet, just quit and return previous status
             if (!isLogin()) return loginResult;
             // Then logout
             loginResult = new Logout().execute().get();
-            if (loginResult != Const.SESSION_LOGGED_IN) {
+            if (loginResult != GlobalConst.SESSION_LOGGED_IN) {
                 // Empty cookie when logout
                 Cookie = null;
             }

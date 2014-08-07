@@ -8,7 +8,8 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-import mhst.dreamteam.Const;
+import mhst.dreamteam.ApplicationContext;
+import mhst.dreamteam.GlobalConst;
 import mhst.dreamteam.Controller.NetController;
 import mhst.dreamteam.GlobalConfig;
 
@@ -21,26 +22,29 @@ public class Logout extends AsyncTask<Void, Void, Integer> {
     @Override
     protected Integer doInBackground(Void... HttpUri) {
         // TODO Auto-generated method stub
+        // Get current session instance
+        Session currentSession = Session.getInstance();
+
         // Parse logout URL
-        String sLogoutUrl = GlobalConfig.Server + GlobalConfig.logoutUri; // Logout Url
+        String sLogoutUrl = currentSession.getWorkingServer() + GlobalConfig.logoutUri; // Logout Url
 
         // Properties for request
         Map<String, String> prop = new HashMap<String, String>();
-        if (Session.getCookie() !=  null) {
-            prop.put("Cookie", Session.getCookie());
+        if (currentSession.getCookie() !=  null) {
+            prop.put("Cookie", currentSession.getCookie());
         }
 
         // Send request and get response data
         Map<String, Object> mResponse = NetController.sendRequest("GET", sLogoutUrl, "", prop);
 
         // Check if there is any error
-        if (mResponse == null) return Const.ERROR_UNKNOWN_ERROR; // No response data
+        if (mResponse == null) return GlobalConst.ERROR_UNKNOWN_ERROR; // No response data
         if (mResponse.containsKey("Error")) return (Integer) mResponse.get("Error"); // Check if any error was detected
         int sttCode;
         if (mResponse.containsKey("Code")) {
             sttCode = (Integer) mResponse.get("Code"); // Get response code
         } else {
-            return Const.ERROR_UNKNOWN_ERROR; // No response code
+            return GlobalConst.ERROR_UNKNOWN_ERROR; // No response code
         }
         Log.i("Log out", "Status code = " + sttCode);
 
@@ -48,13 +52,13 @@ public class Logout extends AsyncTask<Void, Void, Integer> {
         if (sttCode == HttpStatus.SC_MOVED_TEMPORARILY) { // 302
             // Logout successfully
             Log.i("Log out", "Logged out");
-            return Const.SESSION_LOGGED_OUT;
+            return GlobalConst.SESSION_LOGGED_OUT;
         } else if (sttCode == HttpStatus.SC_FORBIDDEN) { // 403
             // Not logged in yet
             Log.i("Log out", "Not logged in yet");
-            return Const.SESSION_LOGGED_OUT;
+            return GlobalConst.SESSION_LOGGED_OUT;
         }
         Log.e("Log out", "Not yet");
-        return Const.SESSION_LOGGED_IN;
+        return GlobalConst.SESSION_LOGGED_IN;
     }
 }

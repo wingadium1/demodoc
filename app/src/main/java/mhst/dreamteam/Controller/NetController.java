@@ -1,5 +1,6 @@
 package mhst.dreamteam.Controller;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import mhst.dreamteam.Const;
+import mhst.dreamteam.GlobalConst;
 
 /**
  * Network controller<br />
@@ -113,13 +114,13 @@ public class NetController {
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            result.put("Error", Const.ERROR_UNKNOWN_HOST);
+            result.put("Error", GlobalConst.ERROR_UNKNOWN_HOST);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            result.put("Error", Const.ERROR_UNKNOWN_ERROR);
+            result.put("Error", GlobalConst.ERROR_UNKNOWN_ERROR);
         } catch (IOException e) {
             e.printStackTrace();
-            result.put("Error", Const.ERROR_CONNECTION_ERROR);
+            result.put("Error", GlobalConst.ERROR_CONNECTION_ERROR);
         } finally {
             if (connection != null) connection.disconnect();
         }

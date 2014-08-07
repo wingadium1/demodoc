@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import mhst.dreamteam.Const;
+import mhst.dreamteam.GlobalConst;
 
 /**
  * Test login action:<br />
@@ -74,7 +74,7 @@ public class LogInTest extends AndroidTestCase {
         try {
             Map<String, Object> result = new Login().execute(sServer, sUser, sPass).get();
             int res = (Integer) result.get("Code");
-            Assert.assertEquals("This should be an unknown host error", Const.ERROR_UNKNOWN_HOST, res);
+            Assert.assertEquals("This should be an unknown host error", GlobalConst.ERROR_UNKNOWN_HOST, res);
         } catch (InterruptedException e) {
             Assert.fail("UnknownHost() method: " + e.getMessage());
         } catch (ExecutionException e) {
@@ -94,7 +94,7 @@ public class LogInTest extends AndroidTestCase {
         try {
             Map<String, Object> result = new Login().execute(sServer, sUser, sPass).get();
             int res = (Integer) result.get("Code");
-            assertEquals("User or pass should be wrong.", Const.ERROR_WRONG_USER_PASS, res);
+            assertEquals("User or pass should be wrong.", GlobalConst.ERROR_WRONG_USER_PASS, res);
         } catch (InterruptedException e) {
             Assert.fail("WrongUserPass() method: " + e.getMessage());
         } catch (ExecutionException e) {
@@ -114,7 +114,7 @@ public class LogInTest extends AndroidTestCase {
         try {
             Map<String, Object> result = new Login().execute(sServer, sUser, sPass).get();
             int res = (Integer) result.get("Code");
-            assertEquals("Logged in failed", Const.SESSION_LOGGED_IN, res);
+            assertEquals("Logged in failed", GlobalConst.SESSION_LOGGED_IN, res);
         } catch (InterruptedException e) {
             Assert.fail("Success() method: " + e.getMessage());
         } catch (ExecutionException e) {

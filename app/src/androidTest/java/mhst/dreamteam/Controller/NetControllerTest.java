@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import mhst.dreamteam.Const;
+import mhst.dreamteam.GlobalConst;
 
 /**
  * Test send request action:<br />
@@ -34,7 +34,7 @@ public class NetControllerTest extends AndroidTestCase {
         // Get error code
         int res = (Integer) response.get("Error");
         // Check if it is UNKNOWN HOST ERROR or not
-        Assert.assertEquals("This should be unknown host error", Const.ERROR_UNKNOWN_HOST, res);
+        Assert.assertEquals("This should be unknown host error", GlobalConst.ERROR_UNKNOWN_HOST, res);
     }
 
     @LargeTest
