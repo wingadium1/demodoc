@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 import mhst.dreamteam.Icinga.IcingaExecutor;
 import mhst.dreamteam.Icinga.IcingaConst;
+import mhst.dreamteam.Icinga.IcingaUdt;
 import mhst.dreamteam.SessionMng.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
 
@@ -44,7 +45,7 @@ public class MainActivity extends Activity {
     private void updateList() {
         String result = null;
         try {
-            result = new IcingaExecutor().execute(IcingaConst.TARGET_HOST, IcingaConst.HOST_NAME, IcingaConst.HOST_LATENCY).get();
+            result = new IcingaExecutor().execute(IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_HOST)).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -60,7 +61,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case GlobalConst.REQUESTCODE_REQUIRE_LOGIN:
-                // if user not log in, just exit
+                // if user not log in, just exit; otherwise, update main activity view
                 if (resultCode != GlobalConst.RETURNCODE_SUCCESS) { finish(); }
                 else { updateList(); }
                 break;

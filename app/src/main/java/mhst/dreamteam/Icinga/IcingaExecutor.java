@@ -1,6 +1,7 @@
 package mhst.dreamteam.Icinga;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpStatus;
 
@@ -15,16 +16,14 @@ import mhst.dreamteam.GlobalConfig;
 import mhst.dreamteam.SessionMng.Session;
 
 /**
- * Execute Icinga Api request
+ * Execute Icinga Api request. This class uses to send request to server and get raw response String.
+ * Uses IcingaApi to parse the response data.
  * @author MinhNN
+ * @see mhst.dreamteam.Icinga.IcingaApi
  */
 public class IcingaExecutor extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
-        // Split target and filter
-        String sTarget = params[0];
-        String[] aColumn = Arrays.copyOfRange(params, 1, params.length);
-
         // Get current application session
         Session AppSession = Session.getInstance();
 
@@ -38,14 +37,12 @@ public class IcingaExecutor extends AsyncTask<String, Void, String> {
             prop.put("Cookie", AppSession.getCookie());
         }
 
-        // Parse api uri
-        // Uri = http://server_address/Api_Uri/target/columns[column_filters]/authkey=something/json
-        String Uri = AppSession.getWorkingServer() + GlobalConfig.apiUri + "/"
-                + sTarget + "/columns" + parseColumn(aColumn)
-                + "/" + GlobalConfig.returnType;
+        // Parse api uri (for further use)
+        String Uri = AppSession.getWorkingServer() + GlobalConfig.apiUri + params[0];
 
         // Send request and get response
         String result;
+        Log.i("Icinga Executor", Uri);
         Map<String, Object> response = NetController.sendRequest("GET", Uri, null, prop);
         if (response.containsKey("Code")) {
             if (((Integer) response.get("Code")) == HttpStatus.SC_OK) {
@@ -56,31 +53,5 @@ public class IcingaExecutor extends AsyncTask<String, Void, String> {
             }
         }
         return null;
-    }
-
-    /**
-     * Parses list of columns into string
-     * @param aColumn list of column
-     * @return string to use in request
-     */
-    private static String parseColumn(String... aColumn) {
-        if (aColumn == null || aColumn.length == 0) return "";
-
-        String sColumns = "[";
-
-        for (String s : aColumn) {
-            sColumns += s + "|";
-        }
-
-        sColumns = sColumns.substring(0, sColumns.length()-1) + "]";
-
-        try {
-            sColumns = URLEncoder.encode(sColumns, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "";
-        }
-
-        return sColumns;
     }
 }
