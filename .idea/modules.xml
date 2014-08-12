@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Icinga-Mobile.iml" filepath="$PROJECT_DIR$/Icinga-Mobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/MHST14-16-Dream.iml" filepath="$PROJECT_DIR$/MHST14-16-Dream.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

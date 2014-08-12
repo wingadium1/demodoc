@@ -37,6 +37,9 @@ public class IcingaConst {
     public static final String TARGET_DOWNTIMEHISTORY = "downtimehistory";
     public static final String TARGET_DOWNTIME = "downtime";
 
+
+
+
     // Problem
     public static final String PROBLEMS_OBJECT_ID = "PROBLEMS_OBJECT_ID";
 
@@ -377,4 +380,8 @@ public class IcingaConst {
     public static final String DOWNTIME_WAS_STARTED = "DOWNTIME_WAS_STARTED";
     public static final String DOWNTIME_ACTUAL_START_TIME = "DOWNTIME_ACTUAL_START_TIME";
     public static final String DOWNTIME_ACTUAL_START_TIME_USEC = "DOWNTIME_ACTUAL_START_TIME_USEC";
+
+
+
+
 }

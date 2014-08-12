@@ -43,6 +43,7 @@ public class LoginActivity extends Activity {
         String sServer = pref.getString("Server", null);
         String sUser = pref.getString("Username", null);
         String sPw = pref.getString("_Pw", null);
+
         if (sServer != null && sUser != null && sPw != null) {
             etIp.setText(sServer);
             etUser.setText(sUser);

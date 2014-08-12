@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.concurrent.ExecutionException;
 
 import mhst.dreamteam.Icinga.IcingaExecutor;
-import mhst.dreamteam.Icinga.IcingaConst;
 import mhst.dreamteam.Icinga.IcingaUdt;
 import mhst.dreamteam.SessionMng.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
@@ -45,7 +44,11 @@ public class MainActivity extends Activity {
     private void updateList() {
         String result = null;
         try {
-            result = new IcingaExecutor().execute(IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_HOST)).get();
+            //result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
+            // IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_SERVICE)).get();
+            result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
+                    IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST,0,0,"")).get();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -87,3 +90,4 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
