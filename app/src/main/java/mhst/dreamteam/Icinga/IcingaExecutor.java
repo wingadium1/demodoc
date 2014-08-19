@@ -18,6 +18,7 @@ import mhst.dreamteam.SessionMng.Session;
 /**
  * Execute Icinga Api request. This class uses to send request to server and get raw response String.
  * Uses IcingaApi to parse the response data.
+ *
  * @author MinhNN
  * @see mhst.dreamteam.Icinga.IcingaApi
  */
@@ -33,7 +34,7 @@ public class IcingaExecutor extends AsyncTask<String, Void, String> {
 
         // Properties for request
         Map<String, String> prop = new HashMap<String, String>();
-        if (AppSession.getCookie() !=  null) {
+        if (AppSession.getCookie() != null) {
             prop.put("Cookie", AppSession.getCookie());
         }
 

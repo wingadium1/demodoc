@@ -16,6 +16,7 @@ import mhst.dreamteam.SessionMng.Session;
 
 /**
  * This is where our program starts
+ *
  * @author MinhNN
  */
 public class MainActivity extends Activity {
@@ -47,7 +48,7 @@ public class MainActivity extends Activity {
             //result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
             // IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_SERVICE)).get();
             result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
-                    IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST,0,0,"")).get();
+                    IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST, 0, 0, "")).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -65,8 +66,11 @@ public class MainActivity extends Activity {
         switch (requestCode) {
             case GlobalConst.REQUESTCODE_REQUIRE_LOGIN:
                 // if user not log in, just exit; otherwise, update main activity view
-                if (resultCode != GlobalConst.RETURNCODE_SUCCESS) { finish(); }
-                else { updateList(); }
+                if (resultCode != GlobalConst.RETURNCODE_SUCCESS) {
+                    finish();
+                } else {
+                    updateList();
+                }
                 break;
         }
     }

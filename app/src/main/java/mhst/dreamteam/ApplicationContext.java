@@ -6,6 +6,7 @@ import mhst.dreamteam.SessionMng.Session;
 
 /**
  * This class implement those class that will go through application life time
+ *
  * @author MinhNN
  */
 public class ApplicationContext extends Application {

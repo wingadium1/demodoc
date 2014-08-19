@@ -11,6 +11,7 @@ import mhst.dreamteam.GlobalConst;
 /**
  * Manage session<br />
  * This is also the application class
+ *
  * @author MinhNN
  */
 public class Session {
@@ -28,6 +29,7 @@ public class Session {
 
     /**
      * Returns instance initialized
+     *
      * @return instance initialized
      */
     public static Session getInstance() {
@@ -36,6 +38,7 @@ public class Session {
 
     /**
      * Get current working server
+     *
      * @return current working server
      */
     public String getWorkingServer() {
@@ -44,8 +47,9 @@ public class Session {
 
     /**
      * Checks if user logged into system or not.
-     * @return  true - user logged in<br />
-     *          false - user has not logged in yet
+     *
+     * @return true - user logged in<br />
+     * false - user has not logged in yet
      */
     public boolean isLogin() {
         return (loginResult == GlobalConst.SESSION_LOGGED_IN);
@@ -53,6 +57,7 @@ public class Session {
 
     /**
      * Return current session cookie
+     *
      * @return cookie string
      */
     public String getCookie() {
@@ -61,9 +66,10 @@ public class Session {
 
     /**
      * Logs user into server
-     * @param loginInfo                     loginInfo[0] = Server Address<br />
-     * &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; loginInfo[1] = Username<br />
-     * &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; loginInfo[2] = Password<br />
+     *
+     * @param loginInfo loginInfo[0] = Server Address<br />
+     *                  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; loginInfo[1] = Username<br />
+     *                  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; loginInfo[2] = Password<br />
      * @throws InvalidParameterException
      */
     public int doLogin(String... loginInfo)

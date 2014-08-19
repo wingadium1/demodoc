@@ -6,11 +6,13 @@ import java.util.Map;
 
 /**
  * Cookie Manager
+ *
  * @author MinhNN
  */
 public class CookieMng {
     /**
      * Parses cookie string into list of field and value
+     *
      * @param cookie cookie string to pass
      * @return a map contains list of field and value
      */
@@ -42,7 +44,7 @@ public class CookieMng {
             // A valid pair of field and value must have "="
             if (aCookie.contains("=")) {
                 String field = aCookie.substring(0, aCookie.indexOf("="));
-                String value = aCookie.substring(aCookie.indexOf("=")+1);
+                String value = aCookie.substring(aCookie.indexOf("=") + 1);
                 result.put(field, value);
             }
         }
@@ -51,6 +53,7 @@ public class CookieMng {
 
     /**
      * Builds cookie string from a list of field
+     *
      * @param cookie list of field to build
      * @return a string of cookie
      */

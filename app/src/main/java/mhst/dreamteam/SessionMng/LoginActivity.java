@@ -20,6 +20,7 @@ import mhst.dreamteam.R;
 
 /**
  * Login activity
+ *
  * @author MinhNN
  */
 public class LoginActivity extends Activity {

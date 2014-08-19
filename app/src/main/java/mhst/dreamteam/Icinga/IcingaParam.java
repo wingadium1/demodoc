@@ -14,6 +14,7 @@ import mhst.dreamteam.GlobalConfig;
  * +OUTPUT (required but can be null, default value added) json or xml<br />
  * After define target and filter, call method toString to convert parameter into String.<br />
  * (*)Remember: target and columns is required. Set target and columns before doing anything.
+ *
  * @author MinhNN
  * @see mhst.dreamteam.Icinga.IcingaConst
  */
@@ -29,6 +30,7 @@ public class IcingaParam {
 
     /**
      * Sets the target
+     *
      * @param sTarget string target
      * @return current instance
      */
@@ -41,6 +43,7 @@ public class IcingaParam {
 
     /**
      * Sets filters
+     *
      * @param filter string filters. Each filter must be nested in AND/OR. Not included square brackets []<br />
      *               i.e. AND/OR(COLUMN|OPERATOR|VALUE;COLUMN2|OPERATOR2|VALUE2;OR(...))
      * @return current instance
@@ -54,6 +57,7 @@ public class IcingaParam {
 
     /**
      * Sets list of columns to show
+     *
      * @param aColumn list of columns
      * @return current instance
      */
@@ -66,6 +70,7 @@ public class IcingaParam {
 
     /**
      * Sets list of columns to show.
+     *
      * @param sColumn list of columns. Not included quare brackets.<Br />
      *                i.e. COLUMN_NAME // for single column
      *                COLUMN1_NAME|COLUMN2_NAME // for multi-columns
@@ -80,7 +85,8 @@ public class IcingaParam {
 
     /**
      * Sets column to sort via.
-     * @param sColumn column to sort
+     *
+     * @param sColumn   column to sort
      * @param sOrderVia asc for ascending or desc for descending
      * @return current instance
      */
@@ -93,6 +99,7 @@ public class IcingaParam {
 
     /**
      * Sets grouping column
+     *
      * @param sGroup column to group by
      * @return current instance
      */
@@ -105,8 +112,9 @@ public class IcingaParam {
 
     /**
      * Sets the offset to start and the limitation of the result.
+     *
      * @param nStart where the result start
-     * @param nEnd the limit of the result
+     * @param nEnd   the limit of the result
      * @return current instance
      */
     public IcingaParam setLimit(int nStart, int nEnd) {
@@ -118,6 +126,7 @@ public class IcingaParam {
 
     /**
      * Sets the offset to start of the result.
+     *
      * @param nOffset where the result start
      * @return current instance
      */
@@ -130,6 +139,7 @@ public class IcingaParam {
 
     /**
      * Sets count field.
+     *
      * @param sColumn column to count.
      * @return current instance
      */
@@ -142,6 +152,7 @@ public class IcingaParam {
 
     /**
      * Override the output type. Default value declare in GlobalConfig class.
+     *
      * @param sOutput xml or json
      * @return current instance
      * @see mhst.dreamteam.GlobalConfig
@@ -155,6 +166,7 @@ public class IcingaParam {
 
     /**
      * Parses list of columns into string
+     *
      * @param aColumn list of column
      * @return string to use in request
      */
@@ -167,7 +179,7 @@ public class IcingaParam {
             sColumns += s + "|";
         }
 
-        sColumns = sColumns.substring(0, sColumns.length()-1) + "]";
+        sColumns = sColumns.substring(0, sColumns.length() - 1) + "]";
 
         return sColumns;
     }

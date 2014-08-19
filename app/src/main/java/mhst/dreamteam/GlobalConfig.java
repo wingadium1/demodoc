@@ -2,6 +2,7 @@ package mhst.dreamteam;
 
 /**
  * Contains every configuration variables such as server address, resources, ...
+ *
  * @author MinhNN
  */
 public class GlobalConfig {

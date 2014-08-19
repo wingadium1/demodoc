@@ -15,6 +15,7 @@ import mhst.dreamteam.GlobalConfig;
 
 /**
  * Logs out from server
+ *
  * @author MinhNN
  */
 public class Logout extends AsyncTask<Void, Void, Integer> {
@@ -30,7 +31,7 @@ public class Logout extends AsyncTask<Void, Void, Integer> {
 
         // Properties for request
         Map<String, String> prop = new HashMap<String, String>();
-        if (currentSession.getCookie() !=  null) {
+        if (currentSession.getCookie() != null) {
             prop.put("Cookie", currentSession.getCookie());
         }
 
@@ -39,7 +40,8 @@ public class Logout extends AsyncTask<Void, Void, Integer> {
 
         // Check if there is any error
         if (mResponse == null) return GlobalConst.ERROR_UNKNOWN_ERROR; // No response data
-        if (mResponse.containsKey("Error")) return (Integer) mResponse.get("Error"); // Check if any error was detected
+        if (mResponse.containsKey("Error"))
+            return (Integer) mResponse.get("Error"); // Check if any error was detected
         int sttCode;
         if (mResponse.containsKey("Code")) {
             sttCode = (Integer) mResponse.get("Code"); // Get response code
