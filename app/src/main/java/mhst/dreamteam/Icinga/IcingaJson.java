@@ -39,10 +39,7 @@ public class IcingaJson {
             String response = new IcingaCronks().execute(params).get();
             JSONObject obj = new JSONObject(response);
             JSONArray listMachine = obj.getJSONArray("rows");
-            List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-            for (int i = 0; i < listMachine.length(); i++) {
-                result.add(new JsonHelper().toMap(listMachine.getJSONObject(i)));
-            }
+            List<Map<String, Object>> result = new JsonHelper().toList(listMachine);
             return result;
 
         } catch (InterruptedException e) {
