@@ -3,13 +3,24 @@ package mhst.dreamteam;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.apache.http.HttpStatus;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import mhst.dreamteam.Controller.NetController;
+import mhst.dreamteam.Icinga.IcingaApi;
+import mhst.dreamteam.Icinga.IcingaCronks;
 import mhst.dreamteam.Icinga.IcingaExecutor;
+import mhst.dreamteam.Icinga.IcingaJson;
 import mhst.dreamteam.Icinga.IcingaUdt;
 import mhst.dreamteam.SessionMng.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
@@ -69,7 +80,9 @@ public class MainActivity extends Activity {
                 if (resultCode != GlobalConst.RETURNCODE_SUCCESS) {
                     finish();
                 } else {
-                    updateList();
+                    //updateList();
+                    String result = new IcingaJson().get("icinga-unhandled-host-problems");
+                    tvHello.setText(result);
                 }
                 break;
         }
