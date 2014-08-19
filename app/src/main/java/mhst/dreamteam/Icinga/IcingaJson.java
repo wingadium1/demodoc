@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -28,21 +29,18 @@ public class IcingaJson {
      * @param params the string parameter to send to request to server
      * @return list of icinga target
      */
-    public static List<Map<String, Object>> get(String... params) {
+    public static List<Map<String, Object>> get(String params) {
         // Check if params is null or has no element
-        if (params == null) return null;
-        for (int i = 0; i < params.length; i++) {
-            if (params[i].isEmpty()) return null;
-        }
+        if (params == null || params.isEmpty()) return null;
 
         // Execute api request
         try {
             // Get response from server
-            String response = new IcingaCronks().execute(params[0]).get();
+            String response = new IcingaCronks().execute(params).get();
             JSONObject obj = new JSONObject(response);
             JSONArray listMachine = obj.getJSONArray("rows");
-            List<Map<String, Object>> result = new List<HashMap()>;
-            for(int i =0;i<listMachine.length();i++){
+            List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+            for (int i = 0; i < listMachine.length(); i++) {
                 result.add(new JsonHelper().toMap(listMachine.getJSONObject(i)));
             }
             return result;
