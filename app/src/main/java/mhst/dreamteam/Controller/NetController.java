@@ -20,18 +20,20 @@ import mhst.dreamteam.GlobalConst;
 /**
  * Network controller<br />
  * Uses to control network communication such as send request to server and get response data, etc.
+ *
  * @author MinhNN
  */
 public class NetController {
     /**
      * Uses to send request to a specific server via POST or GET method.
+     *
      * @param sMethod "POST" - using POST method or "GET" - using GET method
-     * @param sURL Target URL to send request
-     * @param sParam (POST method only) data to send to server
+     * @param sURL    Target URL to send request
+     * @param sParam  (POST method only) data to send to server
      * @return a hashmap of response data<br />
-     *         "Code" - response code<br />
-     *         "Data" - data response from server (eg. json)<br />
-     *         "Error" - any error detected while communicating with server
+     * "Code" - response code<br />
+     * "Data" - data response from server (eg. json)<br />
+     * "Error" - any error detected while communicating with server
      */
     public static Map<String, Object> sendRequest(String sMethod, String sURL, String sParam, Map<String, String> mProperty) {
         HttpURLConnection connection = null;

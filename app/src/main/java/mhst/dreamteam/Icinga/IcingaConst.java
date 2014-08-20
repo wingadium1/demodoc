@@ -2,6 +2,7 @@ package mhst.dreamteam.Icinga;
 
 /**
  * Icinga target and filter constants
+ *
  * @author MinhNN
  */
 public class IcingaConst {
@@ -377,4 +378,5 @@ public class IcingaConst {
     public static final String DOWNTIME_WAS_STARTED = "DOWNTIME_WAS_STARTED";
     public static final String DOWNTIME_ACTUAL_START_TIME = "DOWNTIME_ACTUAL_START_TIME";
     public static final String DOWNTIME_ACTUAL_START_TIME_USEC = "DOWNTIME_ACTUAL_START_TIME_USEC";
+
 }

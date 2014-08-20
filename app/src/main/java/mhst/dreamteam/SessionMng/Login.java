@@ -24,6 +24,7 @@ import mhst.dreamteam.R;
 
 /**
  * Executes login/logout action...
+ *
  * @author MinhNN
  */
 public class Login extends AsyncTask<String, Void, Map<String, Object>>{
@@ -63,7 +64,7 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
 
             // Properties for request
             Map<String, String> prop = new HashMap<String, String>();
-            if (Session.getInstance().getCookie() !=  null) {
+            if (Session.getInstance().getCookie() != null) {
                 prop.put("Cookie", Session.getInstance().getCookie());
             }
 

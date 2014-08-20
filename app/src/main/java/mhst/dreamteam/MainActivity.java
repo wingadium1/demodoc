@@ -15,9 +15,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.apache.http.HttpStatus;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import mhst.dreamteam.Controller.NetController;
+import mhst.dreamteam.Icinga.IcingaApi;
+import mhst.dreamteam.Icinga.IcingaCronks;
 import mhst.dreamteam.Icinga.IcingaExecutor;
+import mhst.dreamteam.Icinga.IcingaJson;
 import mhst.dreamteam.Icinga.IcingaUdt;
 import mhst.dreamteam.UI.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
@@ -27,6 +38,7 @@ import mhst.dreamteam.UI.ServicelistFragment;
 
 /**
  * This is where our program starts
+ *
  * @author MinhNN
  */
 public class MainActivity extends Activity {
@@ -91,7 +103,7 @@ public class MainActivity extends Activity {
             //result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
             // IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_SERVICE)).get();
             result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
-                    IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST,0,0,"")).get();
+                    IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST, 0, 0, "")).get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -135,8 +147,13 @@ public class MainActivity extends Activity {
         switch (requestCode) {
             case GlobalConst.REQUESTCODE_REQUIRE_LOGIN:
                 // if user not log in, just exit; otherwise, update main activity view
-                if (resultCode != GlobalConst.RETURNCODE_SUCCESS) { finish(); }
-                else { updateList(); }
+                if (resultCode != GlobalConst.RETURNCODE_SUCCESS) {
+                    finish();
+                } else {
+                    //updateList();
+                    List result = new IcingaJson().get("icinga-unhandled-host-problems");
+                    tvHello.setText(result.toString());
+                }
                 break;
         }
     }

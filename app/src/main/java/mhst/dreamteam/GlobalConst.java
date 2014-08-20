@@ -2,6 +2,7 @@ package mhst.dreamteam;
 
 /**
  * Contains global constants
+ *
  * @author MinhNN
  */
 public class GlobalConst {

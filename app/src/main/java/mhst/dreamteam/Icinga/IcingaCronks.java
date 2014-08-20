@@ -16,13 +16,12 @@ import mhst.dreamteam.GlobalConfig;
 import mhst.dreamteam.SessionMng.Session;
 
 /**
- * Execute Icinga Api request. This class uses to send request to server and get raw response String.
- * Uses IcingaApi to parse the response data.
+ * Execute Icinga JSON request. This class uses to send request to server and get raw response String.
  *
- * @author MinhNN
+ * @author NamTD
  * @see mhst.dreamteam.Icinga.IcingaApi
  */
-public class IcingaExecutor extends AsyncTask<String, Void, String> {
+public class IcingaCronks extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         // Get current application session
@@ -39,7 +38,7 @@ public class IcingaExecutor extends AsyncTask<String, Void, String> {
         }
 
         // Parse api uri (for further use)
-        String Uri = AppSession.getWorkingServer() + GlobalConfig.apiUri + params[0];
+        String Uri = AppSession.getWorkingServer() + GlobalConfig.jsonUri.replace("%s",params[0]);
 
         // Send request and get response
         String result;
