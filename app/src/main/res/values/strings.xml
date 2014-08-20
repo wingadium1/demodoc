@@ -3,25 +3,26 @@
 
     <string name="app_name">MHST 14 - 16 - Dream</string>
     <string name="app_description">Mô tả phần mềm</string>
-
     <string name="action_login">Đăng nhập</string>
     <string name="action_register">Đăng ký</string>
-
     <string name="hint_user">Tên đăng nhập</string>
     <string name="hint_pass">Mật khẩu</string>
     <string name="hint_server_address">Địa chỉ máy chủ</string>
-
     <string name="remember_login_info">Nhớ thông tin đăng nhập</string>
-
     <string name="title_activity_login">Đăng nhập máy chủ</string>
     <string name="action_settings">Cài đặt</string>
-
     <string name="error">Lỗi</string>
-
     <string name="error_login_fail">Không thể đăng nhập</string>
     <string name="error_wrong_user_pass">Sai tên hoặc mật khẩu</string>
     <string name="error_empty_field">Hãy điền đầy đủ các trường</string>
     <string name="error_server_unreachable">Máy chủ không tồn tại hoặc tạm thời không hoạt động.\nKhông thể kết nối máy chủ</string>
-    <string name="error_connection_error">lỗi kết nối đến máy chủ\nKhông thể kết nối máy chủ</string>
+    <string name="error_connection_error">Lỗi kết nối đến máy chủ\nKhông thể kết nối máy chủ</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message_loading_data">Đang tải dữ liệu</string>
+    <string name="message_wait">Chờ chút nhé</string>
+    <string name="message_logging_in">Đang đăng nhập</string>
+    <string name="host_service">Service:</string>
+    <string name="service_output">Output:</string>
+    <string name="last_check">Last check:</string>
 
 </resources>

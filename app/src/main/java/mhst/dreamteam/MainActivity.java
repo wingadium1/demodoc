@@ -1,26 +1,40 @@
 package mhst.dreamteam;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.concurrent.ExecutionException;
 
 import mhst.dreamteam.Icinga.IcingaExecutor;
 import mhst.dreamteam.Icinga.IcingaUdt;
-import mhst.dreamteam.SessionMng.LoginActivity;
+import mhst.dreamteam.UI.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
+import mhst.dreamteam.UI.HostlistFragment;
+import mhst.dreamteam.UI.OverviewFragment;
+import mhst.dreamteam.UI.ServicelistFragment;
 
 /**
  * This is where our program starts
  * @author MinhNN
  */
 public class MainActivity extends Activity {
-    TextView tvHello;
-    Session currentSession;
+    private Session currentSession;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private ListView mDrawerList;
+    private String[] menuItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +50,38 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        // Do next step here
-        tvHello = (TextView) findViewById(R.id.tvHello);
+        menuItems = getResources().getStringArray(R.array.side_menu_item);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.lv_nav_drawer);
+
+        ArrayAdapter<String> nav_adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, menuItems);
+
+        mDrawerList.setAdapter(nav_adapter);
+
+        mDrawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectItem(position);
+            }
+        });
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_launcher, R.string.app_name, R.string.app_name) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        getActionBar().setHomeButtonEnabled(true);
 
     }
 
@@ -54,9 +98,35 @@ public class MainActivity extends Activity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        if (result != null) {
-            tvHello.setText(result);
+//        if (result != null) {
+//            tvHello.setText(result);
+//        }
+    }
+
+    private void selectItem(int pos) {
+        Fragment fragToChange = null;
+        switch (pos) {
+            case 0: // Overview
+                fragToChange = new OverviewFragment();
+                break;
+            case 1: // Host
+                fragToChange = new HostlistFragment();
+                break;
+            case 2: // Service
+                fragToChange = new ServicelistFragment();
+                break;
         }
+
+        if (fragToChange != null) {
+            FragmentManager fragMng = getFragmentManager();
+            FragmentTransaction fragTrans = fragMng.beginTransaction();
+            fragTrans.replace(R.id.main_content, fragToChange);
+            fragTrans.commit();
+        }
+
+        mDrawerList.setItemChecked(pos, true);
+        setTitle(menuItems[pos]);
+        mDrawerLayout.closeDrawers();
     }
 
     @Override
@@ -72,6 +142,13 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -83,11 +160,8 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 }
 

@@ -1,5 +1,6 @@
 package mhst.dreamteam.Icinga;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -18,7 +19,7 @@ public class IcingaApi {
      * @param params the string parameter to send to request to server
      * @return list of icinga target
      */
-    public static List<Map<String, Object>> get(String params) {
+    public static ArrayList<Map<String, Object>> get(String params) {
         // Check if params is null or has no element
         if (params == null || params.isEmpty()) return null;
 

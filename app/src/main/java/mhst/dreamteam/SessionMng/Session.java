@@ -1,12 +1,16 @@
 package mhst.dreamteam.SessionMng;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import java.security.InvalidParameterException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import mhst.dreamteam.GlobalConst;
+import mhst.dreamteam.Interface.OnCompleteListener;
 
 /**
  * Manage session<br />
@@ -66,8 +70,11 @@ public class Session {
      * &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; loginInfo[2] = Password<br />
      * @throws InvalidParameterException
      */
-    public int doLogin(String... loginInfo)
+    @SuppressWarnings("unchecked")
+    public void doLogin(Context context, OnCompleteListener listener, String... loginInfo)
             throws InvalidParameterException {
+        final OnCompleteListener _listener = listener;
+
         // Check input data
         if (loginInfo.length == 0) {
             throw new InvalidParameterException();
@@ -83,32 +90,32 @@ public class Session {
 
         // Parse server address
         loginInfo[0] = "http://" + loginInfo[0];
+        final String sServer = loginInfo[0];
 
         // Response data
-        Map<String, Object> result;
-        // Do log in and return result code
-        try {
-            result = new Login().execute(loginInfo).get();
-            if (result.containsKey("Code")) {
-                // Login result
-                loginResult = (Integer) result.get("Code");
-            }
-            if (isLogin()) {
-                if (result.containsKey("Cookie")) {
-                    // Current session cookie
-                    Cookie = (String) result.get("Cookie");
+        OnCompleteListener listener_param = new OnCompleteListener() {
+            @Override
+            public void onComplete(Object obj) {
+                Map<String, Object> result = (Map<String, Object>) obj;
+                if (result.containsKey("Code")) {
+                    // Login result
+                    loginResult = (Integer) result.get("Code");
                 }
-                Server = loginInfo[0];
-            }
+                if (isLogin()) {
+                    if (result.containsKey("Cookie")) {
+                        // Current session cookie
+                        Cookie = (String) result.get("Cookie");
+                    }
+                    Server = sServer;
+                }
+                _listener.onComplete(loginResult);
 
-            Log.i("Session login", "Login result = " + loginResult);
-            Log.i("Session login", "Cookie = " + Cookie);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return loginResult;
+                Log.i("Session login", "Login result = " + loginResult);
+                Log.i("Session login", "Cookie = " + Cookie);
+            }
+        };
+        // Do log in and return result code
+        new Login(context, listener_param).execute(loginInfo);
     }
 
     public int doLogout() {

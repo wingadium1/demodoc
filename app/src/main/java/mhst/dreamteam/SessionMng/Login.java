@@ -1,5 +1,7 @@
 package mhst.dreamteam.SessionMng;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,13 +18,33 @@ import java.util.Map;
 import mhst.dreamteam.GlobalConst;
 import mhst.dreamteam.Controller.NetController;
 import mhst.dreamteam.GlobalConfig;
+import mhst.dreamteam.Interface.OnCompleteListener;
 import mhst.dreamteam.Misc.CookieMng;
+import mhst.dreamteam.R;
 
 /**
  * Executes login/logout action...
  * @author MinhNN
  */
 public class Login extends AsyncTask<String, Void, Map<String, Object>>{
+    Context mContext;
+    ProgressDialog mProgress;
+    OnCompleteListener mListener;
+
+    public Login(Context context, OnCompleteListener listener) {
+        mContext = context;
+        mListener = listener;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mProgress = new ProgressDialog(mContext);
+        mProgress.setCancelable(false);
+        mProgress.setMessage(mContext.getResources().getString(R.string.message_logging_in) + "...");
+        mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgress.show();
+    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -137,6 +159,17 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
         }
         mResult.put("Code", GlobalConst.ERROR_UNKNOWN_ERROR);
         return mResult;
+    }
+
+    @Override
+    protected void onPostExecute(Map<String, Object> maps) {
+        super.onPostExecute(maps);
+        if (mProgress != null) {
+            mProgress.dismiss();
+        }
+        if (mListener != null) {
+            mListener.onComplete(maps);
+        }
     }
 
 }
