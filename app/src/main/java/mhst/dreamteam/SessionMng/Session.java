@@ -2,10 +2,8 @@ package mhst.dreamteam.SessionMng;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import java.security.InvalidParameterException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -23,6 +21,7 @@ public class Session {
     private int loginResult = GlobalConst.SESSION_LOGGED_OUT;
     private String Cookie;
     private static Session ss;
+    private boolean isInProgress;
 
     /**
      * Initialize new instance
@@ -57,6 +56,27 @@ public class Session {
      */
     public boolean isLogin() {
         return (loginResult == GlobalConst.SESSION_LOGGED_IN);
+    }
+
+    /**
+     * Checks if any progress is showing.
+     *
+     * @return true - a progress is showing<br />
+     * false - no progress is showing
+     */
+    public boolean isInProgress(boolean in) {
+        isInProgress = in;
+        return isInProgress;
+    }
+
+    /**
+     * Checks if any progress is showing.
+     *
+     * @return true - a progress is showing<br />
+     * false - no progress is showing
+     */
+    public boolean isInProgress() {
+        return isInProgress;
     }
 
     /**
@@ -101,7 +121,7 @@ public class Session {
         // Response data
         OnCompleteListener listener_param = new OnCompleteListener() {
             @Override
-            public void onComplete(Object obj) {
+            public void onComplete(Object obj, String sender) {
                 Map<String, Object> result = (Map<String, Object>) obj;
                 if (result.containsKey("Code")) {
                     // Login result
@@ -114,7 +134,7 @@ public class Session {
                     }
                     Server = sServer;
                 }
-                _listener.onComplete(loginResult);
+                _listener.onComplete(loginResult, "SessionLogin");
 
                 Log.i("Session login", "Login result = " + loginResult);
                 Log.i("Session login", "Cookie = " + Cookie);

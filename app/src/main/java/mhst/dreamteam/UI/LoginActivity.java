@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ import mhst.dreamteam.SessionMng.Session;
 
 /**
  * Login activity
+ *
  * @author MinhNN
  */
 public class LoginActivity extends Activity {
@@ -62,7 +62,7 @@ public class LoginActivity extends Activity {
                 try {
                     OnCompleteListener listener = new OnCompleteListener() {
                         @Override
-                        public void onComplete(Object obj) {
+                        public void onComplete(Object obj, String sender) {
                             int result = (Integer) obj;
                             // Process result
                             switch (result) {

@@ -1,5 +1,6 @@
 package mhst.dreamteam.UI;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,12 @@ import mhst.dreamteam.R;
 
 /**
  * Service list adapter
+ *
  * @author MinhNN
  */
 public class ServicelistAdapter extends BaseAdapter {
-    ArrayList<Map<String, Object>> mListItem;
-    LayoutInflater mInflater;
+    private ArrayList<Map<String, Object>> mListItem;
+    private LayoutInflater mInflater;
 
     public ServicelistAdapter(LayoutInflater inflater, ArrayList<Map<String, Object>> listItem) {
         if (listItem == null || inflater == null) {
@@ -29,9 +31,10 @@ public class ServicelistAdapter extends BaseAdapter {
         mInflater = inflater;
     }
 
+    @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = mInflater.inflate(R.layout.service_item_layout, parent);
+        convertView = mInflater.inflate(R.layout.service_item_layout, parent, false);
 
         TextView tvSttColor = (TextView) convertView.findViewById(R.id.tvServiceSttColor);
         TextView tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);
@@ -41,21 +44,24 @@ public class ServicelistAdapter extends BaseAdapter {
 
         Map<String, Object> item = mListItem.get(position);
 
-        int nColor = R.color.orange;
+        int nColor = Color.ORANGE;
         String sStatus = "UNKNOWN";
-        switch ((Integer) item.get(IcingaConst.SERVICE_CURRENT_STATE)) {
-            case IcingaApiConst.SERVICE_STATE_OK:
-                nColor = R.color.green;
-                sStatus = "OK";
-                break;
-            case IcingaApiConst.SERVICE_STATE_WARNING:
-                nColor = R.color.gray;
-                sStatus = "WARNING";
-                break;
-            case IcingaApiConst.SERVICE_STATE_CRITICAL:
-                nColor = R.color.red;
-                sStatus = "CRITICAL";
-                break;
+        String temp;
+        if ((temp = (String) item.get(IcingaConst.SERVICE_CURRENT_STATE)) != null) {
+            switch (Integer.parseInt(temp)) {
+                case IcingaApiConst.SERVICE_STATE_OK:
+                    nColor = Color.GREEN;
+                    sStatus = "OK";
+                    break;
+                case IcingaApiConst.SERVICE_STATE_WARNING:
+                    nColor = Color.GRAY;
+                    sStatus = "WARNING";
+                    break;
+                case IcingaApiConst.SERVICE_STATE_CRITICAL:
+                    nColor = Color.RED;
+                    sStatus = "CRITICAL";
+                    break;
+            }
         }
 
         tvSttColor.setBackgroundColor(nColor);

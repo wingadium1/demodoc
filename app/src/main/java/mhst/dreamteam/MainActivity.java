@@ -15,21 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.apache.http.HttpStatus;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-import mhst.dreamteam.Controller.NetController;
-import mhst.dreamteam.Icinga.IcingaApi;
-import mhst.dreamteam.Icinga.IcingaCronks;
-import mhst.dreamteam.Icinga.IcingaExecutor;
-import mhst.dreamteam.Icinga.IcingaJson;
-import mhst.dreamteam.Icinga.IcingaUdt;
 import mhst.dreamteam.UI.LoginActivity;
 import mhst.dreamteam.SessionMng.Session;
 import mhst.dreamteam.UI.HostlistFragment;
@@ -97,47 +82,39 @@ public class MainActivity extends Activity {
 
     }
 
-    private void updateList() {
-        String result = null;
-        try {
-            //result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
-            // IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_SERVICE)).get();
-            result = new IcingaExecutor().execute(IcingaUdt.getTemplate(
-                    IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST, 0, 0, "")).get();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-//        if (result != null) {
-//            tvHello.setText(result);
-//        }
-    }
-
     private void selectItem(int pos) {
-        Fragment fragToChange = null;
+        Fragment fragToChange;
+        boolean notFoundFragment = true;
+        FragmentManager fragMng = getFragmentManager();
+        fragToChange = fragMng.findFragmentByTag(menuItems[pos]);
         switch (pos) {
             case 0: // Overview
-                fragToChange = new OverviewFragment();
+                if ((notFoundFragment = (fragToChange == null))) {
+                    fragToChange = new OverviewFragment();
+                }
                 break;
             case 1: // Host
-                fragToChange = new HostlistFragment();
+                if ((notFoundFragment = (fragToChange == null))) {
+                    fragToChange = new HostlistFragment();
+                }
                 break;
             case 2: // Service
-                fragToChange = new ServicelistFragment();
+                if ((notFoundFragment = (fragToChange == null))) {
+                    fragToChange = new ServicelistFragment();
+                }
                 break;
         }
 
         if (fragToChange != null) {
-            FragmentManager fragMng = getFragmentManager();
             FragmentTransaction fragTrans = fragMng.beginTransaction();
             fragTrans.replace(R.id.main_content, fragToChange);
+            if (notFoundFragment) {
+                fragTrans.addToBackStack(menuItems[pos]);
+            }
             fragTrans.commit();
         }
 
         mDrawerList.setItemChecked(pos, true);
-        setTitle(menuItems[pos]);
         mDrawerLayout.closeDrawers();
     }
 
@@ -150,9 +127,7 @@ public class MainActivity extends Activity {
                 if (resultCode != GlobalConst.RETURNCODE_SUCCESS) {
                     finish();
                 } else {
-                    //updateList();
-                    List result = new IcingaJson().get("icinga-unhandled-host-problems");
-                    tvHello.setText(result.toString());
+                    selectItem(0); // Overview
                 }
                 break;
         }

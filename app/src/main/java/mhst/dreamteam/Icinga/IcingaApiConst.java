@@ -85,8 +85,8 @@ public class IcingaApiConst {
 
     // HOST STATES
     public static final int HOST_STATE_OK = 0;
-    public static final int HOST_STATE_UNREACHABLE = 1;
-    public static final int HOST_STATE_DOWN = 2;
+    public static final int HOST_STATE_UNREACHABLE = 2;
+    public static final int HOST_STATE_DOWN = 1;
 
     // SERVICE STATES
     public static final int SERVICE_STATE_OK = 0;

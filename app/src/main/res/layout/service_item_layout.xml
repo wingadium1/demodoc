@@ -7,74 +7,78 @@
 
     <LinearLayout
         android:id="@+id/liStatus"
-        android:layout_width="10dip"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_alignBottom="@+id/liInfo">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
 
         <TextView
             android:id="@+id/tvServiceSttColor"
-            android:layout_width="match_parent"
+            android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:layout_weight="2"
             android:background="@color/yellow" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/liInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/liStatus"
-        android:padding="5dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvServiceName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/liInfo"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="50"
+            android:padding="5dp"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:text="@string/service_output"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/tvServiceOutput"
-                android:layout_width="0dip"
+                android:id="@+id/tvServiceName"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="4"/>
+                android:textColor="@color/blue"
+                android:textSize="18sp"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:text="@string/last_check"
-                android:textStyle="italic"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/tvLastCheck"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:layout_weight="4"/>
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:text="@string/service_output"
+                    android:textColor="@color/gray"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tvServiceOutput"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:textColor="@color/gray"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_check"
+                    android:textStyle="italic"
+                    android:textColor="@color/gray"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tvLastCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:textColor="@color/gray"
+                    android:layout_weight="4"/>
+
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +93,8 @@
             android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textStyle="italic"/>
+            android:textStyle="italic"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 

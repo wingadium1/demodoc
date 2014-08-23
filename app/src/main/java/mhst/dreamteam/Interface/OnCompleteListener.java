@@ -6,5 +6,5 @@ package mhst.dreamteam.Interface;
  * @author MinhNN
  */
 public interface OnCompleteListener {
-    public void onComplete(Object obj);
+    public void onComplete(Object obj, String sender);
 }

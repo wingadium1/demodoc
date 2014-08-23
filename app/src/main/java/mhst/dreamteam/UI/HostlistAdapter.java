@@ -1,5 +1,7 @@
 package mhst.dreamteam.UI;
 
+import android.annotation.SuppressLint;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,12 @@ import mhst.dreamteam.R;
 
 /**
  * Host list adapter
+ *
  * @author MinhNN
  */
 public class HostlistAdapter extends BaseAdapter {
-    ArrayList<Map<String, Object>> mListItem;
-    LayoutInflater mInflater;
+    private ArrayList<Map<String, Object>> mListItem;
+    private LayoutInflater mInflater;
 
     public HostlistAdapter(LayoutInflater inflater, ArrayList<Map<String, Object>> listItem) {
         if (listItem == null || inflater == null) {
@@ -29,9 +32,10 @@ public class HostlistAdapter extends BaseAdapter {
         mInflater = inflater;
     }
 
+    @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = mInflater.inflate(R.layout.host_item_layout, parent);
+        convertView = mInflater.inflate(R.layout.host_item_layout, parent, false);
 
         TextView tvSttColor = (TextView) convertView.findViewById(R.id.tvHostSttColor);
         TextView tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);
@@ -41,26 +45,46 @@ public class HostlistAdapter extends BaseAdapter {
 
         Map<String, Object> item = mListItem.get(position);
 
-        int nColor = R.color.gray;
+        int nColor = Color.GRAY;
         String sStatus = "UNKNOWN";
-        switch ((Integer) item.get(IcingaConst.HOST_CURRENT_STATE)) {
-            case IcingaApiConst.HOST_STATE_OK:
-                nColor = R.color.green;
-                sStatus = "UP";
-                break;
-            case IcingaApiConst.HOST_STATE_UNREACHABLE:
-                nColor = R.color.orange;
-                sStatus = "UNREACHABLE";
-                break;
-            case IcingaApiConst.HOST_STATE_DOWN:
-                nColor = R.color.red_dark;
-                sStatus = "DOWN";
-                break;
+        String temp;
+        if ((temp = (String) item.get(IcingaConst.HOST_CURRENT_STATE)) != null) {
+            switch (Integer.parseInt(temp)) {
+                case IcingaApiConst.HOST_STATE_OK:
+                    nColor = Color.GREEN;
+                    sStatus = "UP";
+                    break;
+                case IcingaApiConst.HOST_STATE_UNREACHABLE:
+                    nColor = Color.ORANGE;
+                    sStatus = "UNREACHABLE";
+                    break;
+                case IcingaApiConst.HOST_STATE_DOWN:
+                    nColor = Color.RED_DARK;
+                    sStatus = "DOWN";
+                    break;
+            }
+        }
+
+        String service = "";
+        if (item.containsKey("SERVICE_WANRING")) {
+            service += "<font color=\"#9A9A9A\">"
+                    + String.valueOf(item.get("SERVICE_WANRING")) + " warning</font>";
+        }
+        if (item.containsKey("SERVICE_CRITICAL")) {
+            if (!service.isEmpty()) {
+                service += " - ";
+            }
+            service += "<font color=\"#FF0000\">"
+                    + String.valueOf(item.get("SERVICE_CRITICAL")) + " critical</font>";
+        }
+        if (service.isEmpty()) {
+            service = "<font color=\"#00FF00\">OK</font>";
         }
 
         tvSttColor.setBackgroundColor(nColor);
         tvStatus.setTextColor(nColor);
         tvStatus.setText(sStatus);
+        tvService.setText(Html.fromHtml(service));
         tvHostName.setText((String) item.get(IcingaConst.HOST_NAME));
         tvLastCheck.setText((String) item.get(IcingaConst.HOST_LAST_CHECK));
         return convertView;

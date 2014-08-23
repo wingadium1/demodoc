@@ -44,8 +44,8 @@ public class JsonHelper {
         return map;
     }
 
-    public static List toList(JSONArray array) throws JSONException {
-        List list = new ArrayList();
+    public static ArrayList toArrayList(JSONArray array) throws JSONException {
+        ArrayList list = new ArrayList();
         for (int i = 0; i < array.length(); i++) {
             list.add(fromJson(array.get(i)));
         }
@@ -58,7 +58,7 @@ public class JsonHelper {
         } else if (json instanceof JSONObject) {
             return toMap((JSONObject) json);
         } else if (json instanceof JSONArray) {
-            return toList((JSONArray) json);
+            return toArrayList((JSONArray) json);
         } else {
             return json;
         }
