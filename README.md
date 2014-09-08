@@ -18,7 +18,7 @@ License v3.0).  Xem tệp [COPYING](COPYING) để biết thêm chi tiết.
 
 ## Giấy phép sử dụng
 
-**Icinga-Mobile** is an  [free and open source software](http://en.wikipedia.org/wiki/Free_and_open_source_software),the main idea is the 16th idea of [MHST-2014] contest(http://vfossa.vn/vi/mhst/2014/).
+**Icinga-Mobile** is an  [free and open source software](http://en.wikipedia.org/wiki/Free_and_open_source_software),the main idea is the 16th idea of [MHST-2014](http://vfossa.vn/vi/mhst/2014/) contest.
 
 The whole source code of **Icinga-Mobile** and all of its related resources are released under the GNU General Public License, version 3.0 (GNU General Public License v3.0).  See [COPYING](COPYING) to more details.
 
