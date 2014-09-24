@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 import java.security.InvalidParameterException;
 
-import mhst.dreamteam.GlobalConfig;
-import mhst.dreamteam.GlobalConst;
-import mhst.dreamteam.Interface.OnCompleteListener;
+import mhst.dreamteam.IcingaClient.GlobalConfig;
+import mhst.dreamteam.IcingaClient.GlobalConst;
+import mhst.dreamteam.IcingaClient.Interface.OnCompleteListener;
 import mhst.dreamteam.R;
-import mhst.dreamteam.SessionMng.Session;
+import mhst.dreamteam.IcingaClient.SessionMng.Session;
 
 /**
  * Login activity
@@ -38,7 +38,6 @@ public class LoginActivity extends Activity {
         final EditText etPass = (EditText) findViewById(R.id.etPass);   // Password
         final CheckBox cbRem = (CheckBox) findViewById(R.id.cbPass);    // Remember me?
         final Button btLogin = (Button) findViewById(R.id.btLogIn);     // Log in
-        final Button btReg = (Button) findViewById(R.id.btRegister);    // Register
         final TextView tvStt = (TextView) findViewById(R.id.tvStt);     // Status
 
         // Fill data if saved before
@@ -111,14 +110,6 @@ public class LoginActivity extends Activity {
                     // Empty field
                     tvStt.setText(LoginActivity.this.getString(R.string.error_empty_field));
                 }
-            }
-        });
-
-        // When register button clicked
-        btReg.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start register activity
             }
         });
     }

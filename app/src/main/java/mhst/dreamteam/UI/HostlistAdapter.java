@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Map;
 
-import mhst.dreamteam.Icinga.IcingaApiConst;
-import mhst.dreamteam.Icinga.IcingaConst;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaApiConst;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaConst;
 import mhst.dreamteam.R;
 
 /**
@@ -35,7 +35,7 @@ public class HostlistAdapter extends BaseAdapter {
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = mInflater.inflate(R.layout.host_item_layout, parent, false);
+        convertView = mInflater.inflate(R.layout.layout_host_item, parent, false);
 
         TextView tvSttColor = (TextView) convertView.findViewById(R.id.tvHostSttColor);
         TextView tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);

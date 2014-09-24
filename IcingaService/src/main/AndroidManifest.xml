@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mhst.dreamteam.Service">
+
+    <application android:allowBackup="true"
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher">
+
+        <service
+            android:name=".DataUpdater"
+            android:exported="false"/>
+
+    </application>
+
+</manifest>

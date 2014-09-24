@@ -14,10 +14,11 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Map;
 
-import mhst.dreamteam.Icinga.IcingaApi;
-import mhst.dreamteam.Icinga.IcingaUdt;
-import mhst.dreamteam.Interface.OnCompleteListener;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaApi;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaUdt;
+import mhst.dreamteam.IcingaClient.Interface.OnCompleteListener;
 import mhst.dreamteam.R;
+import mhst.dreamteam.IcingaClient.SessionMng.Session;
 
 /**
  * Display list of services
@@ -25,8 +26,12 @@ import mhst.dreamteam.R;
  * @author MinhNN
  */
 public class ServicelistFragment extends Fragment implements OnCompleteListener {
-    private ArrayList<Map<String, Object>> mService;
     private Context mContext;
+    private Session currentSs;
+    private ProgressDialog mProgress;
+    private int numberOfProgress;
+
+    private ArrayList<Map<String, Object>> mService;
     private ServicelistAdapter mListServiceAdapter;
     private String mRequest;
     private AlertDialog mDialog;
@@ -36,6 +41,12 @@ public class ServicelistFragment extends Fragment implements OnCompleteListener 
         View view = inflater.inflate(R.layout.fragment_servicelist, container, false);
 
         mContext = inflater.getContext();
+        currentSs = Session.getInstance();
+        numberOfProgress = 0;
+        mProgress = new ProgressDialog(mContext);
+        mProgress.setCancelable(false);
+        mProgress.setMessage(mContext.getResources().getString(R.string.message_loading_data) + "...");
+
         mService = new ArrayList<Map<String, Object>>();
         ListView listService = (ListView) view.findViewById(R.id.lvListService);
         mListServiceAdapter = new ServicelistAdapter(inflater, mService);
@@ -69,7 +80,12 @@ public class ServicelistFragment extends Fragment implements OnCompleteListener 
     }
 
     public void updateList() {
-        IcingaApi.get(mContext, this, mRequest);
+        if (!currentSs.isInProgress() && !mProgress.isShowing()) {
+            currentSs.isInProgress(true);
+            mProgress.show();
+        }
+        numberOfProgress = 2;
+        IcingaApi.get(this, mRequest);
     }
 
     @Override
@@ -105,6 +121,10 @@ public class ServicelistFragment extends Fragment implements OnCompleteListener 
             if (!mDialog.isShowing()) {
                 mDialog.show();
             }
+        }
+        if (mProgress != null && mProgress.isShowing() && --numberOfProgress == 0) {
+            mProgress.dismiss();
+            currentSs.isInProgress(false);
         }
     }
 }

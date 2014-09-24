@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import mhst.dreamteam.Interface.OnPieChartClickListener;
+import mhst.dreamteam.IcingaClient.Interface.OnPieChartClickListener;
 
 /**
  * Draw a pie graph

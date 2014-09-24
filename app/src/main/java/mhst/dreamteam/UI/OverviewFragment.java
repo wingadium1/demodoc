@@ -20,12 +20,13 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.Map;
 
-import mhst.dreamteam.Icinga.IcingaApi;
-import mhst.dreamteam.Icinga.IcingaConst;
-import mhst.dreamteam.Icinga.IcingaUdt;
-import mhst.dreamteam.Interface.OnCompleteListener;
-import mhst.dreamteam.Interface.OnPieChartClickListener;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaApi;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaConst;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaUdt;
+import mhst.dreamteam.IcingaClient.Interface.OnCompleteListener;
+import mhst.dreamteam.IcingaClient.Interface.OnPieChartClickListener;
 import mhst.dreamteam.R;
+import mhst.dreamteam.IcingaClient.SessionMng.Session;
 
 /**
  * Display overview information
@@ -34,6 +35,10 @@ import mhst.dreamteam.R;
  */
 public class OverviewFragment extends Fragment implements OnPieChartClickListener, OnCompleteListener{
     private Context mContext;
+    private Session currentSs;
+    private ProgressDialog mProgress;
+    private int numberOfProgress;
+
     private RelativeLayout mMainLayout;
     private Integer[] mHostSection, mServiceSection;
     private Integer[] mHostColor, mServiceColor;
@@ -57,12 +62,19 @@ public class OverviewFragment extends Fragment implements OnPieChartClickListene
 
         // Init resources
         mContext = inflater.getContext();
+        currentSs = Session.getInstance();
+        numberOfProgress = 0;
+        mProgress = new ProgressDialog(mContext);
+        mProgress.setCancelable(false);
+        mProgress.setMessage(mContext.getResources().getString(R.string.message_loading_data) + "...");
+
         mHostSection = new Integer[]{0, 0, 0, 0}; // 4 state
         mHostColor = new Integer[]{Color.GREEN, Color.RED_DARK, Color.ORANGE, Color.GRAY};
         mHostName = new String[]{"", "", "", ""}; // 4 state
         mServiceSection = new Integer[]{0, 0, 0, 0}; // 4 state
         mServiceColor = new Integer[]{Color.GREEN, Color.GRAY, Color.RED, Color.ORANGE};
         mServiceName = new String[]{"", "", "", ""}; // 4 state
+
         mMainLayout = (RelativeLayout) view.findViewById(R.id.fragmentOverview);
         FrameLayout hostLayout = (FrameLayout) view.findViewById(R.id.graphHostList);
         FrameLayout serviceLayout = (FrameLayout) view.findViewById(R.id.graphServiceList);
@@ -118,8 +130,13 @@ public class OverviewFragment extends Fragment implements OnPieChartClickListene
     }
 
     private void updateUi() {
-        IcingaApi.get(mContext, this, IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_HOST, 0, -1, ""));
-        IcingaApi.get(mContext, this, IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_SERVICE, 0, -1, ""));
+        if (!currentSs.isInProgress() && !mProgress.isShowing()) {
+            currentSs.isInProgress(true);
+            mProgress.show();
+        }
+        numberOfProgress = 2;
+        IcingaApi.get(this, IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_HOST, 0, -1, ""));
+        IcingaApi.get(this, IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_SERVICE, 0, -1, ""));
     }
 
     @Override
@@ -136,17 +153,17 @@ public class OverviewFragment extends Fragment implements OnPieChartClickListene
             case HOST_DOWN:
                 frag = new HostlistFragment();
                 b.putString("Request", IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_DOWNHOST, 0, -1, null));
-                b.putString("TitleEx", "[DOWN]");
+                b.putString("TitleEx", "[DWN]");
                 break;
             case HOST_UNREACHABLE:
                 frag = new HostlistFragment();
                 b.putString("Request", IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_UNREACHABLEHOST, 0, -1, null));
-                b.putString("TitleEx", "[UNREACHABLE]");
+                b.putString("TitleEx", "[UNR]");
                 break;
             case HOST_PENDING:
                 frag = new HostlistFragment();
                 b.putString("Request", IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_PENDINGHOST, 0, -1, null));
-                b.putString("TitleEx", "[PENDING]");
+                b.putString("TitleEx", "[PEN]");
                 break;
             case SERVICE_OK:
                 frag = new ServicelistFragment();
@@ -156,17 +173,17 @@ public class OverviewFragment extends Fragment implements OnPieChartClickListene
             case SERVICE_WARNING:
                 frag = new ServicelistFragment();
                 b.putString("Request", IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_WARNINGSERVICE, 0, -1, null));
-                b.putString("TitleEx", "[WARNING]");
+                b.putString("TitleEx", "[WRN]");
                 break;
             case SERVICE_CRITICAL:
                 frag = new ServicelistFragment();
                 b.putString("Request", IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_CRITICALSERVICE, 0, -1, null));
-                b.putString("TitleEx", "[CRITICAL]");
+                b.putString("TitleEx", "[CRT]");
                 break;
             case SERVICE_UNKNOWN:
                 frag = new ServicelistFragment();
                 b.putString("Request", IcingaUdt.getTemplate(IcingaUdt.ICINGA_TEMPLATE_MAINACTIVITY_UNKNOWSERVICE, 0, -1, null));
-                b.putString("TitleEx", "[UNKNOWN]");
+                b.putString("TitleEx", "[UNK]");
                 break;
         }
 
@@ -258,6 +275,10 @@ public class OverviewFragment extends Fragment implements OnPieChartClickListene
             if (!mDialog.isShowing()) {
                 mDialog.show();
             }
+        }
+        if (mProgress != null && mProgress.isShowing() && --numberOfProgress == 0) {
+            mProgress.dismiss();
+            currentSs.isInProgress(false);
         }
     }
 }

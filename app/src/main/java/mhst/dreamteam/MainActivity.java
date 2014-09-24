@@ -11,12 +11,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import mhst.dreamteam.IcingaClient.GlobalConst;
 import mhst.dreamteam.UI.LoginActivity;
-import mhst.dreamteam.SessionMng.Session;
+import mhst.dreamteam.IcingaClient.SessionMng.Session;
 import mhst.dreamteam.UI.HostlistFragment;
 import mhst.dreamteam.UI.OverviewFragment;
 import mhst.dreamteam.UI.ServicelistFragment;
@@ -32,6 +35,7 @@ public class MainActivity extends Activity {
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
     private String[] menuItems;
+    private int[] menuNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,27 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         menuItems = getResources().getStringArray(R.array.side_menu_item);
+        menuNumbers = new int[menuItems.length];
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.lv_nav_drawer);
 
-        ArrayAdapter<String> nav_adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, menuItems);
+        ArrayAdapter<String> nav_adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.layout_side_menu_item, menuItems) {
+            @Override
+            @SuppressWarnings("ViewHolder")
+            public View getView(int position, View convertView, ViewGroup parent) {
+                convertView = getLayoutInflater().inflate(R.layout.layout_side_menu_item, parent, false);
+
+                TextView tvTitle = (TextView) convertView.findViewById(R.id.tvSideMenuItemTitle);
+                TextView tvNumber = (TextView) convertView.findViewById(R.id.tvSideMenuItemNumber);
+
+                tvTitle.setText(menuItems[position]);
+                if (menuNumbers[position] != 0) {
+                    tvNumber.setText(menuItems[position]);
+                }
+
+                return convertView;
+            }
+        };
 
         mDrawerList.setAdapter(nav_adapter);
 

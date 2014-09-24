@@ -14,12 +14,13 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Map;
 
-import mhst.dreamteam.Icinga.IcingaApi;
-import mhst.dreamteam.Icinga.IcingaApiConst;
-import mhst.dreamteam.Icinga.IcingaConst;
-import mhst.dreamteam.Icinga.IcingaUdt;
-import mhst.dreamteam.Interface.OnCompleteListener;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaApi;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaApiConst;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaConst;
+import mhst.dreamteam.IcingaClient.Icinga.IcingaUdt;
+import mhst.dreamteam.IcingaClient.Interface.OnCompleteListener;
 import mhst.dreamteam.R;
+import mhst.dreamteam.IcingaClient.SessionMng.Session;
 
 /**
  * Display list of hosts
@@ -27,8 +28,12 @@ import mhst.dreamteam.R;
  * @author MinhNN
  */
 public class HostlistFragment extends Fragment implements OnCompleteListener {
-    private ArrayList<Map<String, Object>> mHost;
     private Context mContext;
+    private Session currentSs;
+    private ProgressDialog mProgress;
+    private int numberOfProgress;
+
+    private ArrayList<Map<String, Object>> mHost;
     private HostlistAdapter mListHostAdapter;
     private String mRequest;
     private AlertDialog mDialog;
@@ -41,6 +46,12 @@ public class HostlistFragment extends Fragment implements OnCompleteListener {
 
         // Init resourses
         mContext = inflater.getContext();
+        currentSs = Session.getInstance();
+        numberOfProgress = 0;
+        mProgress = new ProgressDialog(mContext);
+        mProgress.setCancelable(false);
+        mProgress.setMessage(mContext.getResources().getString(R.string.message_loading_data) + "...");
+
         mHost = new ArrayList<Map<String, Object>>();
         mTitle = "";
         ListView listHost = (ListView) view.findViewById(R.id.lvListHost);
@@ -81,8 +92,13 @@ public class HostlistFragment extends Fragment implements OnCompleteListener {
     }
 
     public void updateList() {
-        IcingaApi.get(mContext, this, mRequest);
-        IcingaApi.cronks(mContext, this, IcingaApi.TEMPLATE_PROBLEMS_ICINGA_ALL_SERVICE);
+        if (!currentSs.isInProgress() && !mProgress.isShowing()) {
+            currentSs.isInProgress(true);
+            mProgress.show();
+        }
+        numberOfProgress = 4;
+        IcingaApi.get(this, mRequest);
+        IcingaApi.cronks(this, IcingaApi.TEMPLATE_PROBLEMS_ICINGA_ALL_SERVICE);
     }
 
     @Override
@@ -144,6 +160,10 @@ public class HostlistFragment extends Fragment implements OnCompleteListener {
             if (!mDialog.isShowing()) {
                 mDialog.show();
             }
+        }
+        if (mProgress != null && mProgress.isShowing() && --numberOfProgress == 0) {
+            mProgress.dismiss();
+            currentSs.isInProgress(false);
         }
     }
 }
