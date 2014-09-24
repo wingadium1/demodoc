@@ -6,6 +6,7 @@ Icinga-Mobile
 
 ## Hướng dẫn nhanh
 
+Download bản mới nhất từ trang github này.
 ## Giấy phép sử dụng
 
 **Icinga-Mobile** là [phần mềm tự do nguồn mở](http://en.wikipedia.org/wiki/Free_and_open_source_software), ý tưởng xuất phát từ đề tài số 16 của cuộc thi [Mùa hè sáng tạo 2014](http://vfossa.vn/vi/mhst/2014/).
@@ -17,7 +18,9 @@ License v3.0).  Xem tệp [COPYING](COPYING) để biết thêm chi tiết.
 **Icinga-Mobile** is an *Android* application for monitoring, warning and configging
 ## Quick start guide
 
-## Giấy phép sử dụng
+
+Download the newest release from this github.com to your android device and use.
+## License
 
 **Icinga-Mobile** is an  [free and open source software](http://en.wikipedia.org/wiki/Free_and_open_source_software),the main idea is the 16th idea of [MHST-2014](http://vfossa.vn/vi/mhst/2014/) contest.
 
