@@ -28,6 +28,7 @@ Máy tính cá nhân của các thành viên
 **Server Icinga-web triển khai thử nghiêm**
 Hỗ trợ từ phía công ty NetNam
 **Công cụ phát triển**
+
 1. IDE: [Android Studio](https://developer.android.com/sdk/installing/studio.html)
 2. Quản lý dự án: [Trello](https://trello.com/mhst1416)
 3. Quản lí phiên bản: git version 2.1.1 (http://git-scm.com/downloads)
@@ -58,6 +59,7 @@ Quy trình upstreamming là quy trình kinh điển trong phát triển các d�
 Dự án được chia thành nhiều sprint, mỗi sprint hoàn thành một số chức năng và kiểm thử hoàn chỉnh. Sau khi kết thúc sprint này chuyển tiếp sang sprint tiếp theo.
 
 ***Yêu cầu về mã nguồn***
+
 1. Đảm bảo mã nguồn tự do và nguồn mở
 2. Comment đẩy đủ
 3. Có trích dẫn cụ thể tác giả mã nguồn và giấy phép 
