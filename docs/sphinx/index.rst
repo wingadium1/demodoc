@@ -15,6 +15,9 @@ Mục lục
 
 .. toctree::
    :maxdepth: 2
+   install
+   usage
+   contributing
 
 Giấy phép xuất bản (License)
 ----------------------------
