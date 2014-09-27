@@ -22,7 +22,7 @@ Icinga mobile gồm 3 module chính :
 * Icinga service: service chạy ngầm thực hiện nhận thông tin xử lý thông tin từ icinga, hiển thị system notification.
 * Main app: ứng dụng chính, tương tác trực tiếp với người dùng. Hiển thị thông tin về các host service.
 
-![alt text](.\images\Kientrucicinga.png "Kiến trúc Icinga-mobile")
+![alt text](/image/Kientrucicinga.png "Kiến trúc Icinga-mobile")
 ######MÔ TẢ QUÁ TRÌNH HOẠT ĐỘNG ######
 
 Người dùng thực hiện đăng nhập Main app là module thực hiện, gửi request trực tiếp với Icinga-web, khi thực hiện đăng nhập thành công Main app sẽ tạo ra một broadcast messenger, Module Icinga Service sẽ catch messenger này lấy thông tin của phiên đăng nhập,sau đó gửi request lấy thông tin mỗi 0.5s đến Icinga-web qua Library Icinga client.
