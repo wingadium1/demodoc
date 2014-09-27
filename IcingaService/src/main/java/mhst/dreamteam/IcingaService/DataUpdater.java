@@ -1,8 +1,7 @@
-package mhst.dreamteam.Service;
+package mhst.dreamteam.IcingaService;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 
@@ -14,7 +13,6 @@ import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import mhst.dreamteam.IcingaClient.GlobalConst;
 import mhst.dreamteam.IcingaClient.Icinga.IcingaApi;
 import mhst.dreamteam.IcingaClient.Interface.OnCompleteListener;
 

@@ -43,8 +43,9 @@ public class CookieMng {
         for (String aCookie : listCookie) {
             // A valid pair of field and value must have "="
             if (aCookie.contains("=")) {
-                String field = aCookie.substring(0, aCookie.indexOf("="));
-                String value = aCookie.substring(aCookie.indexOf("=") + 1);
+                String field = aCookie.substring(0, aCookie.indexOf("=")).trim();
+                String value = aCookie.substring(aCookie.indexOf("=") + 1).trim();
+                if(!field.isEmpty())
                 result.put(field, value);
             }
         }
@@ -66,8 +67,17 @@ public class CookieMng {
         String[] aField = cookie.keySet().toArray(new String[cookie.size()]);
         // Append field and value to result
         for (String field : aField) {
-            result += field + "=" + cookie.get(field) + ";";
+            if(!field.isEmpty()) {
+                result += removeSpecial(field) + "=" + removeSpecial(cookie.get(field)) + ";";
+            }
         }
         return result;
+    }
+
+    /**
+     * To remove special character equal sign = and semicolon ; at value and value
+     */
+    public static String removeSpecial(String field){
+        return field.trim().replace(";", "").replace("=","");
     }
 }

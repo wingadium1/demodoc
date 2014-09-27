@@ -1,4 +1,4 @@
-package mhst.dreamteam.Service;
+package mhst.dreamteam.IcingaService;
 
 import android.app.PendingIntent;
 import android.content.Context;

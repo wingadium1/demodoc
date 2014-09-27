@@ -37,6 +37,7 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
     public Login(Context context, OnCompleteListener listener) {
         mContext = context;
         mListener = listener;
+        Session.init();
         currentSs = Session.getInstance();
         mExecuting = false;
     }
@@ -48,7 +49,8 @@ public class Login extends AsyncTask<String, Void, Map<String, Object>>{
         mProgress.setCancelable(false);
         mProgress.setMessage(mContext.getResources().getString(R.string.message_logging_in) + "...");
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        if (!currentSs.isInProgress() && !mProgress.isShowing()) {
+        if (!currentSs.isInProgress()
+                && !mProgress.isShowing()) {
             currentSs.isInProgress(true);
             mProgress.show();
         }
