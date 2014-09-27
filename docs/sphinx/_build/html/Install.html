@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cài đặt &mdash; Icinga-mobile 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Icinga-mobile 1.0.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">Icinga-mobile 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cai-dat">
+<h1>Cài đặt<a class="headerlink" href="#cai-dat" title="Permalink to this headline">¶</a></h1>
+<p>Icinga-mobile có thể được cài đặt từ gói <a href="#id1"><span class="problematic" id="id2">*</span></a>apk từ trang release hoặc tự build file (nếu bạn muốn) trực tiếp từ mã nguồn.</p>
+<div class="section" id="tu-goi-cai-dat-apk">
+<h2>Từ gói cài đặt apk<a class="headerlink" href="#tu-goi-cai-dat-apk" title="Permalink to this headline">¶</a></h2>
+<p>Người dùng có thể download các phiên bản của apk từ trang realese trên Github của dự án.</p>
+</div>
+<div class="section" id="tu-ma-nguon">
+<h2>Từ mã nguồn<a class="headerlink" href="#tu-ma-nguon" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Nếu bạn chưa thành thạo về Android và chỉ muốn sử dụng Icinga-mobile thì không nên cài đặt từ mã nguồn.</p>
+</div>
+<p>Icinga mobile là ứng dụng android nên bạn cần sử dụng công cụ Ant để biên dịch và build file apk. Nếu không có Ant bạn có thể download và cài đặt nó từ <a class="reference external" href="http://ant.apache.org/">trang chủ Apache Ant</a>, sau đó bạn cần đặt đường dẫn PATH và JAVA_HOME cho máy tính của bạn.</p>
+<p>Sau đó bạn tải mã nguồn tại <a class="reference external" href="https://github.com/MHST14-16-Dream/Icinga-Mobile/releases">https://github.com/MHST14-16-Dream/Icinga-Mobile/releases</a> rồi giải nén. Hoặc dùng:</p>
+<div class="highlight-python"><pre>git clone https://github.com/MHST14-16-Dream/Icinga-Mobile.git</pre>
+</div>
+<p>Chuyển đến thư mục gốc của Icinga-Mobile</p>
+<blockquote>
+<div>cd /path/to/Icinga-Mobile</div></blockquote>
+<p>Compile với realease mode</p>
+<blockquote>
+<div>ant realse</div></blockquote>
+<p>Complie với debug mode</p>
+<blockquote>
+<div>ant debug</div></blockquote>
+<p>file apk sau khi build sẽ nằm trong thư mục con /bin .</p>
+</div>
+<div class="section" id="cai-dat-server-icinga">
+<h2>Cài đặt server Icinga<a class="headerlink" href="#cai-dat-server-icinga" title="Permalink to this headline">¶</a></h2>
+<p>Bạn cần sử dụng một server Icinga với mô hình server client. Để cài đặt Icinga trên server bạn có thể tham khảo tại trang <a class="reference external" href="http://docs.icinga.org/latest/en/quickstart.html">Icinga documents</a> sau đó cài <a class="reference external" href="http://docs.icinga.org/latest/en/icinga-web-scratch.html">Icinga-web frontend</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cài đặt</a><ul>
+<li><a class="reference internal" href="#tu-goi-cai-dat-apk">Từ gói cài đặt apk</a></li>
+<li><a class="reference internal" href="#tu-ma-nguon">Từ mã nguồn</a></li>
+<li><a class="reference internal" href="#cai-dat-server-icinga">Cài đặt server Icinga</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Install.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">Icinga-mobile 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Dream Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
