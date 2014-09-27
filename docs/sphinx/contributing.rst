@@ -19,6 +19,13 @@ viết blog, wiki cho trang github, chia sẻ với cộng đồng về ứng d�
 .. _pull request: https://help.github.com/articles/using-pull-requests
 .. _[MHST14-Dream]: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!forum/mhst14-16-dream
 
+
+Mục lục
+-------
+
+.. toctree::
+   :maxdepth: 2
+
 Cấu trúc code
 -------------
 
@@ -46,11 +53,12 @@ Bạn có thể tìm thấy tài liệu về cách sử dụng chúng dưới đ
 Testing
 -------
 
-Nhóm phát triển Icinga-mobile sử dụng Agile method trong việc phát triển phần mềm, qua đó tuân theo mô hình `test-driven software
-development`_. Trong quá trình này, chúng tôi chủ yếu sử dụng phương pháp Unit test,bạn luôn phải viết test mỗi khi thay đổi code. Các test case có thể tìm thấy trong thư con mục ``Androidtest`` nằm trong mỗi thành phần của dự án.
+Nhóm phát triển Icinga-mobile sử dụng Agile method trong việc phát triển phần mềm, qua đó tuân theo mô hình `test-driven software development`_. Trong quá trình này, chúng tôi chủ yếu sử dụng phương pháp Unit test,bạn luôn phải viết test mỗi khi thay đổi code. Các test case có thể tìm thấy trong thư con mục ``Androidtest`` nằm trong mỗi thành phần của dự án.
 
 Với unit test chúng tôi sử dụng chủ yếu Framework testing Junit.
 Để chạy test, bạn cần cài viết class java test kế thừa từ class **AndroidTestCase**, sau đó run test trong IDE(bạn nên sử dụng Android Studio)
+
+.. _test-driven software development: http://en.wikipedia.org/wiki/Test-driven_development
 
 Git Flow
 --------

@@ -50,6 +50,13 @@
 sử dụng phiên bản unstable và thông báo lỗi, viết hướng dẫn sử dụng,
 viết blog, wiki cho trang github, chia sẻ với cộng đồng về ứng dụng monitor này.</p>
 <p>Để góp ý cho chúng tôi cũng như tham gia và dự án bạn có thể thông qua mailinglist <a class="reference external" href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!forum/mhst14-16-dream">[MHST14-Dream]</a> trên Google Mail nếu bạn có mong muốn giúp sức. Mọi sự đóng góp của các bạn dù dưới hình thức nào cũng đều được chúng tôi hết sức trân trọng.</p>
+<div class="section" id="muc-luc">
+<h2>Mục lục<a class="headerlink" href="#muc-luc" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+</div>
 <div class="section" id="cau-truc-code">
 <h2>Cấu trúc code<a class="headerlink" href="#cau-truc-code" title="Permalink to this headline">¶</a></h2>
 <p>Chúng tôi thực hiện module hóa phần mềm để dễ dàng cho các bước phát triển tiếp theo ở phần Backend theo một chuẩn API nên Icinga-mobile được chia thành 3 phần chính là Main Application, Icinga service gồn các service chạy ngầm và bộ thư viện dùng chung Icinga Client giao tiếp với API của Icinga-web</p>
@@ -72,8 +79,7 @@ khi tìm hiểu code của Icinga-mobile.</p>
 </div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
-<p>Nhóm phát triển Icinga-mobile sử dụng Agile method trong việc phát triển phần mềm, qua đó tuân theo mô hình <a href="#id1"><span class="problematic" id="id2">`test-driven software
-development`_</span></a>. Trong quá trình này, chúng tôi chủ yếu sử dụng phương pháp Unit test,bạn luôn phải viết test mỗi khi thay đổi code. Các test case có thể tìm thấy trong thư con mục <tt class="docutils literal"><span class="pre">Androidtest</span></tt> nằm trong mỗi thành phần của dự án.</p>
+<p>Nhóm phát triển Icinga-mobile sử dụng Agile method trong việc phát triển phần mềm, qua đó tuân theo mô hình <a class="reference external" href="http://en.wikipedia.org/wiki/Test-driven_development">test-driven software development</a>. Trong quá trình này, chúng tôi chủ yếu sử dụng phương pháp Unit test,bạn luôn phải viết test mỗi khi thay đổi code. Các test case có thể tìm thấy trong thư con mục <tt class="docutils literal"><span class="pre">Androidtest</span></tt> nằm trong mỗi thành phần của dự án.</p>
 <p>Với unit test chúng tôi sử dụng chủ yếu Framework testing Junit.
 Để chạy test, bạn cần cài viết class java test kế thừa từ class <strong>AndroidTestCase</strong>, sau đó run test trong IDE(bạn nên sử dụng Android Studio)</p>
 </div>
@@ -111,6 +117,9 @@ Sau khi release phải merge lại vào <tt class="docutils literal"><span class
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Tham gia phát triển</a><ul>
+<li><a class="reference internal" href="#muc-luc">Mục lục</a><ul>
+</ul>
+</li>
 <li><a class="reference internal" href="#cau-truc-code">Cấu trúc code</a></li>
 <li><a class="reference internal" href="#coding-style">Coding style</a></li>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
