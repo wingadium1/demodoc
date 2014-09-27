@@ -19,19 +19,19 @@ Icinga mobile là ứng dụng android nên bạn cần sử dụng công cụ A
 
 Sau đó bạn tải mã nguồn tại https://github.com/MHST14-16-Dream/Icinga-Mobile/releases rồi giải nén. Hoặc dùng::
 
-    git clone https://github.com/MHST14-16-Dream/Icinga-Mobile.git
+   git clone https://github.com/MHST14-16-Dream/Icinga-Mobile.git
 
-Chuyển đến thư mục gốc của Icinga-Mobile
+Chuyển đến thư mục gốc của Icinga-Mobile::
 
-    cd /path/to/Icinga-Mobile
+   cd /path/to/Icinga-Mobile
 
-Compile với realease mode
+Compile với realease mode::
 
-    ant realse
+   ant realse
 
-Complie với debug mode
+Complie với debug mode::
 
-    ant debug
+   ant debug
 
 file apk sau khi build sẽ nằm trong thư mục con /bin .
 
