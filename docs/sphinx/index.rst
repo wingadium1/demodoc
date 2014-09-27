@@ -15,6 +15,7 @@ Mục lục
 
 .. toctree::
    :maxdepth: 2
+
    install
    usage
    contributing
@@ -39,6 +40,9 @@ ghi trong phần LICENSE của từng file mã nguồn.
 .. _Icinga-web: http://www.icinga.org/icinga/screenshots/icinga-web/
 .. _phần mềm tự do nguồn mở: http://en.wikipedia.org/wiki/Free_and_open_source_software
 .. _CREDIT: http://github.com/MHST14-16-Dream/Icinga-Mobile/blob/master/Credit.md
+
+Indices and tables
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`
