@@ -1,13 +1,6 @@
 Sử dụng
 =======
 
-Mục lục
--------
-
-.. toctree::
-   :maxdepth: 2
-
-
 Icinga-mobile
 -------------
 Icinga-mobile hoạt động giống các ứng dụng android khác, bạn chỉ cần cài đặt từ file ``*.apk`` là có thể sử dụng bình thường. Do tính chất của Icinga-mobile là ứng dụng monitor nên yêu cầu Internet Access (Mobile Internet, Wifi) khi sử dụng

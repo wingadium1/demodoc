@@ -3,13 +3,6 @@ Cài đặt
 
 Icinga-mobile có thể được cài đặt từ gói *apk từ trang release hoặc tự build file (nếu bạn muốn) trực tiếp từ mã nguồn.
 
-Mục lục
--------
-
-.. toctree::
-   :maxdepth: 2
-
-
 Từ gói cài đặt apk
 ------------------
 

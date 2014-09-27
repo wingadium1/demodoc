@@ -19,13 +19,6 @@ viết blog, wiki cho trang github, chia sẻ với cộng đồng về ứng d�
 .. _pull request: https://help.github.com/articles/using-pull-requests
 .. _[MHST14-Dream]: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!forum/mhst14-16-dream
 
-
-Mục lục
--------
-
-.. toctree::
-   :maxdepth: 2
-
 Cấu trúc code
 -------------
 
