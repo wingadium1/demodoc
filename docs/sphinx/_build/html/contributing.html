@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tham gia phát triển &mdash; Icinga-mobile 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Icinga-mobile 1.0.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">Icinga-mobile 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tham-gia-phat-trien">
+<h1>Tham gia phát triển<a class="headerlink" href="#tham-gia-phat-trien" title="Permalink to this headline">¶</a></h1>
+<p>Mã nguồn Icinga-mobile được đặt trên <cite>Github</cite> ở địa chỉ: <a class="reference external" href="https://github.com/MHST14-16-Dream/Icinga-Mobile">https://github.com/MHST14-16-Dream/Icinga-Mobile</a></p>
+<p>Để tham gia viết code bạn cần biết cách sử dụng <a class="reference external" href="http://git-scm.com/book">git</a> và lập trình <a class="reference external" href="http://developer.android.com/index.html">android</a></p>
+<p>Hãy fork và tạo một branch mới từ branch <tt class="docutils literal"><span class="pre">master</span></tt> (xem phần Git Flow bên dưới), sau đó viết code và gửi chúng tôi một <a class="reference external" href="https://help.github.com/articles/using-pull-requests">pull request</a>. Chúng tôi sẽ xem xét và commit code của bạn trong thời gian sớm nhất.</p>
+<p>Tuy nhiên, bạn cũng có thể đóng góp theo những cách đơn giản hơn như
+sử dụng phiên bản unstable và thông báo lỗi, viết hướng dẫn sử dụng,
+viết blog, wiki cho trang github, chia sẻ với cộng đồng về ứng dụng monitor này.</p>
+<p>Để góp ý cho chúng tôi cũng như tham gia và dự án bạn có thể thông qua mailinglist <a class="reference external" href="https://groups.google.com/forum/?utm_medium=email&amp;utm_source=footer#!forum/mhst14-16-dream">[MHST14-Dream]</a> trên Google Mail nếu bạn có mong muốn giúp sức. Mọi sự đóng góp của các bạn dù dưới hình thức nào cũng đều được chúng tôi hết sức trân trọng.</p>
+<div class="section" id="cau-truc-code">
+<h2>Cấu trúc code<a class="headerlink" href="#cau-truc-code" title="Permalink to this headline">¶</a></h2>
+<p>Chúng tôi thực hiện module hóa phần mềm để dễ dàng cho các bước phát triển tiếp theo ở phần Backend theo một chuẩn API nên Icinga-mobile được chia thành 3 phần chính là Main Application, Icinga service gồn các service chạy ngầm và bộ thư viện dùng chung Icinga Client giao tiếp với API của Icinga-web</p>
+</div>
+<div class="section" id="coding-style">
+<h2>Coding style<a class="headerlink" href="#coding-style" title="Permalink to this headline">¶</a></h2>
+<p>Chúng tôi cố gắng tạo một Coding Convention chuẩn cho toàn dự án, Coding Convention này được xây dựng chủ yếu dựa trên Android Coding Convention và Java Coding Convention, tài liệu chi tiết được lưu trong thư mục docs trên trang GitHub của dự án.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Chúng tôi cũng cố gắng viết code thật dễ hiểu với documentation,
+comment đầy đủ trong code nên hi vọng bạn sẽ không cảm thấy khó khăn
+khi tìm hiểu code của Icinga-mobile.</p>
+<p>Thành phần Main Apps có sử dụng các thư viện xử lý Json, Thành phần Icinga client chứa các thư viện column name của Icinga-web database để sử dụng Icinga Web REST API</p>
+<p>Bạn có thể tìm thấy tài liệu về cách sử dụng chúng dưới đây:</p>
+<ul class="simple">
+<li>Json: <a class="reference external" href="http://json.org/">http://json.org/</a></li>
+<li>Icinga Web REST API: <a class="reference external" href="http://docs.icinga.org/latest/en/icinga-web-api.html">http://docs.icinga.org/latest/en/icinga-web-api.html</a></li>
+</ul>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>Nhóm phát triển Icinga-mobile sử dụng Agile method trong việc phát triển phần mềm, qua đó tuân theo mô hình <a href="#id1"><span class="problematic" id="id2">`test-driven software
+development`_</span></a>. Trong quá trình này, chúng tôi chủ yếu sử dụng phương pháp Unit test,bạn luôn phải viết test mỗi khi thay đổi code. Các test case có thể tìm thấy trong thư con mục <tt class="docutils literal"><span class="pre">Androidtest</span></tt> nằm trong mỗi thành phần của dự án.</p>
+<p>Với unit test chúng tôi sử dụng chủ yếu Framework testing Junit.
+Để chạy test, bạn cần cài viết class java test kế thừa từ class <strong>AndroidTestCase</strong>, sau đó run test trong IDE(bạn nên sử dụng Android Studio)</p>
+</div>
+<div class="section" id="git-flow">
+<h2>Git Flow<a class="headerlink" href="#git-flow" title="Permalink to this headline">¶</a></h2>
+<p>Icinga-mobile được quản lý bằng Git.  Phương pháp này sử dụng có thể trình bày sơ lược như sau:</p>
+<ul class="simple">
+<li>Repo chính trên Github hiện đang là branch là <tt class="docutils literal"><span class="pre">master</span></tt> chứa tất cả
+những thay đổi mới nhất của Icinga-mobile. Tuy nhiên, thường ít khi commit trực tiếp vào <tt class="docutils literal"><span class="pre">master</span></tt> ngoài những commit sửa lỗi nhỏ.</li>
+<li>Khi thực hiện một tính năng mới thì lập trình viên tạo branch mới với
+tên <tt class="docutils literal"><span class="pre">issue/&lt;tên</span> <span class="pre">tính</span> <span class="pre">năng&gt;</span></tt>. Sau khi kiểm tra toàn bộ thì merge branch này với <tt class="docutils literal"><span class="pre">master</span></tt> và xóa branch <tt class="docutils literal"><span class="pre">issue/*</span></tt> đi. Từ sau trở đi tính năng này sẽ được maintain trong branch <tt class="docutils literal"><span class="pre">master</span></tt>.</li>
+<li>Khi có đủ tính năng mới và các lỗi quan trọng đã được sửa thì có thể
+tính đến việc release phiên bản major mới. Khi đó tạo branch <tt class="docutils literal"><span class="pre">release/v&lt;phiên</span> <span class="pre">bản&gt;</span></tt>
+và thực hiện tất cả các commit sửa lỗi cho phiên bản này tại đây. Khi tất cả các lỗi trước khi phát hành được sửa hết thì sửa version string trong source code, tạo tag cho phiên bản mới và merge vào master. Trong toàn bộ quá trình này, các thay đổi mới vẫn thực hiện ở các issue branch như bình thường. Sau khi release thì các commit ở <tt class="docutils literal"><span class="pre">release/*</span></tt> được merge trở lại vào <tt class="docutils literal"><span class="pre">master</span></tt>.</li>
+<li>Sau khi release phiên bản major mà phát hiện lỗi đặc biệt nghiêm trọng
+nào đó thì phải sửa ngay lập tức và release phiên bản minor với branch
+<tt class="docutils literal"><span class="pre">hotfix/v&lt;phiên</span> <span class="pre">bản&gt;</span></tt>. Quy trình giống như một branch <tt class="docutils literal"><span class="pre">release/*</span></tt>.
+Sau khi release phải merge lại vào <tt class="docutils literal"><span class="pre">master</span></tt>.</li>
+</ul>
+<dl class="docutils">
+<dt>Chi tiết về phương pháp git flow:</dt>
+<dd><a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">http://nvie.com/posts/a-successful-git-branching-model/</a></dd>
+<dt>Công cụ hỗ trợ <tt class="docutils literal"><span class="pre">git-flow</span></tt>:</dt>
+<dd><a class="reference external" href="http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/">http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/</a></dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tham gia phát triển</a><ul>
+<li><a class="reference internal" href="#cau-truc-code">Cấu trúc code</a></li>
+<li><a class="reference internal" href="#coding-style">Coding style</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#git-flow">Git Flow</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/contributing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">Icinga-mobile 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Dream Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
